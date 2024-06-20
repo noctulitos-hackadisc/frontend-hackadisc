@@ -1,24 +1,12 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createMemoryHistory, createRouter } from "vue-router";
 
+import HomeView from "../views/HomeView.vue";
 
-Vue.use(VueRouter);
+const routes = [{ path: "/", component: HomeView }];
 
-const routes = [
-    {
-      path: "/",
-      name: "home",
-      component: () => import("../views/Home.vue"),
-    },
-    {
-        path: "/404",
-        redirect: "/error"
-    }
-];
-
-const router = new VueRouter({
-    mode: "history",
-    routes,
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes,
 });
 
 export default router;
