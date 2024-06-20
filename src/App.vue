@@ -1,13 +1,9 @@
-<script setup>
-</script>
-
-
 <template>
   <div>
-    <h1>{{ title }}</h1>
-    <p>{{ message }}</p>
+    <RouterView />
   </div>
 </template>
 
-<style scoped>
-</style>
+<script setup>
+import { RouterView } from "vue-router";
+</script>
