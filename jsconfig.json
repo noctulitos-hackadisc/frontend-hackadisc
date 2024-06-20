@@ -7,5 +7,15 @@
       "jsx": "preserve"
     },
     "exclude": ["node_modules", "dist"]
+    ,
+    "aliases": {
+      "utils": "@/lib/utils",
+      "components": "@/components",
+      "ui": "@/app/ui"
+    }
+    ,
+
+    
   }
+  
   

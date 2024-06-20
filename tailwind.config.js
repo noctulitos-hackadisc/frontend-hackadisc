@@ -23,6 +23,10 @@ module.exports = {
     },
     extend: {
       colors: {
+        'primaryGreen': '#4CA650',
+        'primaryBlue': '#0A2E59',
+        'secundaryGreen': '#77B800',
+        'colorLime': '#7ECA27',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
