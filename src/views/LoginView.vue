@@ -33,12 +33,12 @@
         </div>
         <p class="text-center text-sm text-muted-foreground">
           Al iniciar sesión aceptas nuestros
-          <a class="underline underline-offset-4 hover:text-primary"
-            >Términos de servicio</a
-          >
+          <a class="underline underline-offset-4 hover:text-primary">
+            Términos de servicio
+          </a>
           y
-          <a class="underline underline-offset-4 hover:text-primary"
-            >Política de privacidad</a
+          <a class="underline underline-offset-4 hover:text-primary">
+            Política de privacidad </a
           >.
         </p>
       </div>

@@ -18,12 +18,16 @@
     </div>
     <div class="space-y-4 mt-auto">
       <SidebarItem icon="perfil" text="Ver perfil" />
-      <SidebarItem icon="logout" text="Cerrar sesión" />
+      <SidebarItem
+        icon="logout"
+        text="Cerrar sesión"
+        @click="useAuth().destoreUser"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { useAuth } from "@/stores/store";
 import SidebarItem from "@/components/SideBarItem.vue";
 </script>

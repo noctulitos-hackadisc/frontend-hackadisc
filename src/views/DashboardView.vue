@@ -1,6 +1,4 @@
 <template>
-  <Sidebar />
-
   <div class="overflow-y-auto w-full">
     <div class="p-8">
       <div class="">
@@ -59,7 +57,6 @@ import { ref } from "vue";
 import Card from "@/components/CardKpi.vue";
 import BarChart from "@/components/BarChart.vue";
 import PolarAreaChart from "@/components/PolarAreaChart.vue";
-import Sidebar from "@/components/Sidebar.vue";
 
 const dataset = [
   {
