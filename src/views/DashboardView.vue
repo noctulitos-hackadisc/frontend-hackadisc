@@ -4,44 +4,42 @@
   <div class="overflow-y-auto w-full">
     <div class="p-8">
       <div class="">
-        <h1 class="text-2xl mb-4 text-center">Dashboard KPI</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <h1 class="text-5xl mb-4 text-center font-bold pt-10">Dashboard KPI</h1>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 mt-16"
+        >
           <Card
             title="Total Evaluations"
             :value="totalEvaluations"
-            shadowClass="shadow-2xl"
+            :whole_number="true"
           />
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
           <Card
             title="Average Adaptability"
-            :value="averageAdaptability.toFixed(2)"
-            shadowClass="shadow-2xl"
+            :value="averageAdaptability.toFixed(2) * 100"
           />
           <Card
             title="Average Safe Conduct"
-            :value="averageSafeConduct.toFixed(2)"
-            shadowClass="shadow-2xl"
+            :value="averageSafeConduct.toFixed(2) * 100"
           />
           <Card
             title="Average Dynamism"
-            :value="averageDynamism.toFixed(2)"
-            shadowClass="shadow-2xl"
+            :value="averageDynamism.toFixed(2) * 100"
           />
           <Card
             title="Average Personal Effectiveness"
-            :value="averagePersonalEffectiveness.toFixed(2)"
-            shadowClass="shadow-2xl"
+            :value="averagePersonalEffectiveness.toFixed(2) * 100"
           />
           <Card
             title="Average Initiative"
-            :value="averageInitiative.toFixed(2)"
-            shadowClass="shadow-2xl"
+            :value="averageInitiative.toFixed(2) * 100"
           />
           <Card
             title="Average Working Under Pressure"
-            :value="averageWorkingUnderPressure.toFixed(2)"
-            shadowClass="shadow-2xl"
+            :value="averageWorkingUnderPressure.toFixed(2) * 100"
           />
         </div>
 

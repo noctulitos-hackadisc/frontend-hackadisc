@@ -1,7 +1,8 @@
 <template>
-  <div :class="`p-6 bg-white rounded-lg ${shadowClass}`">
+  <div class="p-6 bg-white rounded-lg shadow-lg">
     <h2 class="text-lg font-semibold mb-2">{{ title }}</h2>
-    <p class="text-3xl font-bold">{{ value }}</p>
+    <p v-if="props.whole_number" class="text-3xl font-bold">{{ value }}</p>
+    <p v-else class="text-3xl font-bold">{{ value }} %</p>
   </div>
 </template>
 
@@ -9,9 +10,6 @@
 const props = defineProps({
   title: String,
   value: [String, Number],
-  shadowClass: {
-    type: String,
-    default: "shadow-md",
-  },
+  whole_number: Boolean,
 });
 </script>
