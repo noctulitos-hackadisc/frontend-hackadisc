@@ -1,4 +1,17 @@
 <template>
+  <div class="overflow-y-auto w-full">
+    <div class="p-8">
+      <div class="">
+        <h1 class="text-5xl mb-4 text-center font-bold pt-10">Dashboard KPI</h1>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 mt-16"
+        >
+          <Card
+            title="Total Evaluations"
+            :value="totalEvaluations"
+            :whole_number="true"
+          />
   <div class="flex h-screen">
     <div class="flex-grow p-8">
       <div class="container mx-auto p-4">
@@ -11,6 +24,8 @@
           <Card title="Evaluaciones realizadas este mes" :value="completedEvaluationsThisMonth" shadowClass="shadow-2xl" />
           <Card title="Satisfacción del Empleado" :value="employeeSatisfaction+ '%'"  shadowClass="shadow-2xl" />
         </div>
+
+        <!-- More detailed metrics -->
 
         <!-- More detailed metrics -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
@@ -38,6 +53,7 @@
 import { ref } from "vue";
 import Card from "@/components/CardKpi.vue";
 import BarChart from "@/components/BarChart.vue";
+import PolarAreaChart from "@/components/PolarAreaChart.vue";
 
 const dataset = [
   {
