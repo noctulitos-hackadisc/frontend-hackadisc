@@ -33,11 +33,19 @@
         </div>
         <p class="text-center text-sm text-muted-foreground">
           Al iniciar sesión aceptas nuestros
-          <a class="underline underline-offset-4 hover:text-primary">
+          <a
+            class="underline underline-offset-4 hover:text-primary hover:cursor-pointer"
+            href="https://drive.google.com/file/d/1M3tz_s9Qig8lE8eLbSZjw4cqwoKxYmtW/view?usp=drive_link"
+            target="_blank"
+          >
             Términos de servicio
           </a>
           y
-          <a class="underline underline-offset-4 hover:text-primary">
+          <a
+            class="underline underline-offset-4 hover:text-primary hover:cursor-pointer"
+            href="https://drive.google.com/file/d/1M3tz_s9Qig8lE8eLbSZjw4cqwoKxYmtW/view?usp=drive_link"
+            target="_blank"
+          >
             Política de privacidad </a
           >.
         </p>

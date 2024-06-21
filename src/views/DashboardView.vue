@@ -1,72 +1,70 @@
 <template>
   <div class="w-full overflow-x-auto">
-    <div class="flex-grow p-8">
-      <div class="container mx-auto">
-        <h1 class="text-2xl mb-4 text-center">Dashboard de Métricas</h1>
+    <h1 class="text-4xl font-bold my-16 ml-10">Dashboard de Métricas</h1>
 
-        <!-- Cards para Métricas KPI -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <CardKpi
-            title="Evaluaciones Totales"
-            :value="totalEvaluations"
-            shadowClass="shadow-2xl bg-blue-200"
-          />
-          <CardKpi
-            title="Evaluaciones este mes"
-            :value="evaluationsThisMonth"
-            shadowClass="shadow-2xl"
-          />
-          <CardKpi
-            title="Porcentaje de mejora"
-            :value="improvementPercentage.toFixed(2) + '%'"
-            shadowClass="shadow-2xl"
-          />
-          <CardKpi
-            title="Satisfacción del Empleado"
-            :value="employeeSatisfaction.toFixed(2) + '%'"
-            shadowClass="shadow-2xl"
-          />
-        </div>
+    <div class="container mx-auto">
+      <!-- Cards para Métricas KPI -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <CardKpi
+          title="Evaluaciones Totales"
+          :value="totalEvaluations"
+          shadowClass="shadow-2xl bg-blue-200"
+        />
+        <CardKpi
+          title="Evaluaciones este mes"
+          :value="evaluationsThisMonth"
+          shadowClass="shadow-2xl"
+        />
+        <CardKpi
+          title="Porcentaje de mejora"
+          :value="improvementPercentage.toFixed(2) + '%'"
+          shadowClass="shadow-2xl"
+        />
+        <CardKpi
+          title="Satisfacción del Empleado"
+          :value="employeeSatisfaction.toFixed(2) + '%'"
+          shadowClass="shadow-2xl"
+        />
+      </div>
 
-        <!-- Métricas detalladas -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          <CardKpi2
-            title="Promedio de Adaptabilidad"
-            :value="averageAdaptability.toFixed(2)"
-            shadowClass="shadow-2xl"
-          />
-          <CardKpi2
-            title="Promedio de Conducta Segura"
-            :value="averageSafeConduct.toFixed(2)"
-            shadowClass="shadow-2xl"
-          />
-          <CardKpi2
-            title="Promedio de Dinamismo"
-            :value="averageDynamism.toFixed(2)"
-            shadowClass="shadow-2xl"
-          />
-          <CardKpi2
-            title="Promedio de Efectividad Personal"
-            :value="averagePersonalEffectiveness.toFixed(2)"
-            shadowClass="shadow-2xl"
-          />
-          <CardKpi2
-            title="Promedio de Iniciativa"
-            :value="averageInitiative.toFixed(2)"
-            shadowClass="shadow-2xl"
-          />
-          <CardKpi2
-            title="Promedio de Trabajo bajo Presión"
-            :value="averageWorkingUnderPressure.toFixed(2)"
-            shadowClass="shadow-2xl"
-          />
-        </div>
+      <!-- Métricas detalladas -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        <CardKpi2
+          title="Promedio de Adaptabilidad"
+          :value="averageAdaptability.toFixed(2)"
+          shadowClass="shadow-2xl"
+        />
+        <CardKpi2
+          title="Promedio de Conducta Segura"
+          :value="averageSafeConduct.toFixed(2)"
+          shadowClass="shadow-2xl"
+        />
+        <CardKpi2
+          title="Promedio de Dinamismo"
+          :value="averageDynamism.toFixed(2)"
+          shadowClass="shadow-2xl"
+        />
+        <CardKpi2
+          title="Promedio de Efectividad Personal"
+          :value="averagePersonalEffectiveness.toFixed(2)"
+          shadowClass="shadow-2xl"
+        />
+        <CardKpi2
+          title="Promedio de Iniciativa"
+          :value="averageInitiative.toFixed(2)"
+          shadowClass="shadow-2xl"
+        />
+        <CardKpi2
+          title="Promedio de Trabajo bajo Presión"
+          :value="averageWorkingUnderPressure.toFixed(2)"
+          shadowClass="shadow-2xl"
+        />
+      </div>
 
-        <!-- Gráfico de Barras -->
-        <div class="flex justify-center">
-          <div class="w-full lg:w-2/3 py-5">
-            <BarChart :data="barChartData" :options="chartOptions" />
-          </div>
+      <!-- Gráfico de Barras -->
+      <div class="flex justify-center">
+        <div class="w-full lg:w-2/3 py-5">
+          <BarChart :data="barChartData" :options="chartOptions" />
         </div>
       </div>
     </div>
@@ -297,7 +295,9 @@ const averageWorkingUnderPressure = calculateAverage("working_under_pressure");
 
 // Función para calcular porcentaje de mejora
 function calculateImprovementPercentage(dataset) {
-  const highPerformers = dataset.filter(item => item.adaptability_to_change > 0.8);
+  const highPerformers = dataset.filter(
+    (item) => item.adaptability_to_change > 0.8
+  );
   return (highPerformers.length / totalEvaluations) * 100;
 }
 
@@ -305,19 +305,24 @@ function calculateImprovementPercentage(dataset) {
 function calculateEvaluationsThisMonth(dataset) {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
-  return dataset.filter(item => new Date(item.date).getMonth() === currentMonth).length;
+  return dataset.filter(
+    (item) => new Date(item.date).getMonth() === currentMonth
+  ).length;
 }
 
 // Función para calcular satisfacción del empleado
 function calculateEmployeeSatisfaction(dataset) {
-  const totalScores = dataset.reduce((acc, cur) =>
-    acc +
-    cur.adaptability_to_change +
-    cur.safe_conduct +
-    cur.dynamism_energy +
-    cur.personal_effectiveness +
-    cur.initiative +
-    cur.working_under_pressure, 0);
+  const totalScores = dataset.reduce(
+    (acc, cur) =>
+      acc +
+      cur.adaptability_to_change +
+      cur.safe_conduct +
+      cur.dynamism_energy +
+      cur.personal_effectiveness +
+      cur.initiative +
+      cur.working_under_pressure,
+    0
+  );
   return (totalScores / (totalEvaluations * 6)) * 100;
 }
 

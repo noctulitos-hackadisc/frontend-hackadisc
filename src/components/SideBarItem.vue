@@ -4,6 +4,9 @@
   >
     <component :is="iconComponent" class="w-7 h-8" />
     <span class="ml-2">{{ text }}</span>
+    <div class="mx-4">
+      <slot name="icon" />
+    </div>
   </div>
 </template>
 
@@ -47,9 +50,10 @@ const iconComponent = computed(() => {
       return DashboardIcon;
     case "interventions":
       return InterventionIcon;
-    case "perfil":
+    case "profile":
       return PerfilIcon;
     case 'metrics':
+    case "metricas":
       return MetricIcon;
     case 'statistics':
       return StatsIcon;
