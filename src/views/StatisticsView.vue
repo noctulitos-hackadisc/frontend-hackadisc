@@ -1,30 +1,29 @@
 <template>
-    <div>
-      <h1 class="text-4xl font-bold my-16 ml-10">Dashboard de Métricas</h1>
-  
-      <div class="container mx-auto">
-        <!-- Gráfico de Línea - Histórico de Evaluaciones -->
-        <div class="mb-10">
-          <h2 class="text-xl mb-4">Histórico de Evaluaciones</h2>
-          <LineChart :data="lineChartData" :options="lineChartOptions" />
-        </div>
-  
-        <!-- Gráfico Radar - Promedios de Competencias -->
-        <div class="mb-10">
-          <h2 class="text-xl mb-4">Promedios de Competencias</h2>
-          <RadarChart :data="radarChartData" :options="radarChartOptions" />
-        </div>
+  <div class="w-full overflow-x-auto">
+    <h1 class="text-4xl font-bold my-16 ml-10">Dashboard de Métricas</h1>
+
+    <!-- Renderizar gráficos de línea para cada competencia -->
+    <div class="container mx-auto">
+      <Carousel :data="dataset" />
+    </div>
+
+    <h1 class="text-4xl font-bold my-16 ml-10">Promedios de Competencias</h1>
+
+    <!-- Gráfico Radar - Promedios de Competencias -->
+    <div class="container mx-auto">
+      <div class="my-10">
+        <RadarChart :data="radarChartData" :options="radarChartOptions" />
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue';
-  import LineChart from '@/components/LineChart.vue';
-  import RadarChart from '@/components/RadarChart.vue';
-  
-  // Dataset de ejemplo
-  const dataset = [
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import RadarChart from "@/components/RadarChart.vue";
+import Carousel from "@/components/Carousel.vue";
+
+const dataset = [
   {
     user_id: 6,
     adaptability_to_change: 0.32,
@@ -226,94 +225,49 @@
     date: "2024-04-13 11:54:27",
   },
 ];
-  
-  // Función para calcular el promedio de cada métrica
-  function calculateAverage(metric) {
-    const total = dataset.reduce((acc, cur) => acc + cur[metric], 0);
-    return total / dataset.length;
-  }
-  
-  // Obtener todas las competencias para el gráfico de línea
-  const competencias = Object.keys(dataset[0]).filter(key => key !== 'user_id' && key !== 'date');
-  
-  // Datos y opciones para el gráfico de línea
-  const lineChartData = ref({
-    labels: dataset.map(item => item.date),
-    datasets: competencias.map(competencia => ({
-      label: competencia.replace(/_/g, ' ').toUpperCase(),
-      data: dataset.map(item => item[competencia]),
-      borderColor: getRandomColor(),
-      borderWidth: 2,
-      fill: false
-    }))
-  });
-  
-  const lineChartOptions = ref({
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        ticks: {
-          display: true,
-          color: '#333'
-        }
-      },
-      y: {
-        ticks: {
-          display: true,
-          color: '#333'
-        }
-      }
-    }
-  });
-  
-  // Datos y opciones para el gráfico radar
-  const radarChartData = ref({
-    labels: competencias.map(competencia => competencia.replace(/_/g, ' ').toUpperCase()),
-    datasets: [
-      {
-        label: 'Promedios',
-        data: competencias.map(competencia => calculateAverage(competencia)),
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1
-      }
-    ]
-  });
-  
-  const radarChartOptions = ref({
-    responsive: true,
-    maintainAspectRatio: false,
-    elements: {
-      line: {
-        borderWidth: 2
-      }
+
+const totalEvaluations = dataset.length;
+
+function calculateAverage(metric) {
+  const total = dataset.reduce((acc, cur) => acc + cur[metric], 0);
+  return total / totalEvaluations;
+}
+
+const competencias = Object.keys(dataset[0]).filter(
+  (key) => key !== "user_id" && key !== "date"
+);
+
+const radarChartData = ref({
+  labels: competencias.map((competencia) =>
+    competencia.replace(/_/g, " ").toUpperCase()
+  ),
+  datasets: [
+    {
+      label: "Promedios",
+      data: competencias.map((competencia) => calculateAverage(competencia)),
+      backgroundColor: "rgba(255, 99, 132, 0.2)",
+      borderColor: "rgba(255, 99, 132, 1)",
+      borderWidth: 1,
     },
-    scales: {
-      r: {
-        angleLines: {
-          display: true
-        },
-        suggestedMin: 0,
-        suggestedMax: 1
-      }
-    }
-  });
-  
-  // Función auxiliar para obtener colores aleatorios
-  function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-  </script>
-  
-  <style scoped>
-  canvas {
-    width: 100%;
-    height: 400px; /* Ajusta la altura según tus necesidades */
-  }
-  </style>
+  ],
+});
+
+const radarChartOptions = ref({
+  responsive: true,
+  maintainAspectRatio: false,
+  elements: {
+    line: {
+      borderWidth: 2,
+    },
+  },
+  scales: {
+    r: {
+      angleLines: {
+        display: true,
+      },
+      suggestedMin: 0,
+      suggestedMax: 1,
+    },
+  },
+});
+</script>
