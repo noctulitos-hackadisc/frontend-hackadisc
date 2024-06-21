@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="inline-flex h-screen">
     <RouterView />
   </div>
 </template>
