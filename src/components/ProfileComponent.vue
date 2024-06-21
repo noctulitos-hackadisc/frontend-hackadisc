@@ -2,34 +2,48 @@
     <Dialog :open="isOpen" @update:open="isOpen = $event">
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Perfil del usuario</DialogTitle>
-          <img src="/src/assets/avatar3d.avif" alt="" width="100px" height="100px" class="rounded-full">
-          <DialogDescription>
+          <DialogTitle class="p-3">Perfil del usuario</DialogTitle>
+          <DialogDescription>   
             <template v-if="userProfile">
-            <p>Nombre: {{ userProfile.name }}</p>
-            <p>Email: {{ userProfile.email }}</p>
-            <p>Rol: {{ userProfile.role.name }}</p>
-            <p>Compañías:</p>
-            <ul>
-              <li v-for="company in userProfile.profile.companies" :key="company.id">
-                {{ company.name }}
+            <div class="grid grid-cols-2 gap-4">
+            <!-- Imagen -->
+            <div class="px-8">
+                <img src="/src/assets/avatar3d.avif" alt="" width="100px" height="100px" class="rounded-full col-span-1">
+            </div>
+
+            <!-- Datos del perfil -->
+            <div class="col-span-1">
+                <p class="font-semibold">Nombre: <span>{{ userProfile.name }}</span></p>
+                <p class="font-semibold">Email: <span>{{ userProfile.email }}</span></p>
+                <p class="font-semibold">Rol: <span>{{ userProfile.role.name }}</span></p>
+            </div>
+
+            <!-- Compañías y Subcompañías -->
+            <div class="col-span-2">
+                <p class="font-semibold mt-5">Compañía:</p>
                 <ul>
-                    <p>Subcompañías:</p>
-                  <li v-for="subcompany in company.subcompanies" :key="subcompany.id">
-                    {{ subcompany.name }}
-                  </li>
+                <li v-for="company in userProfile.profile.companies" :key="company.id">
+                    <span>{{ company.name }}</span>
+                    <ul class="ml-4 float-right">
+                    <p class="font-semibold">Subcompañías:</p>
+                    <li v-for="subcompany in company.subcompanies" :key="subcompany.id">
+                        <span>{{ subcompany.name }}</span>
+                    </li>
+                    </ul>
+                </li>
                 </ul>
-              </li>
-            </ul>
-          </template>
-          <template v-else>
+            </div>
+            <img src="/src/assets/logoPignus.png" alt="" width="200px" height="100px" class="rounded-full col-span-1">
+            </div>
+        </template>
+        <template v-else>
             <p>Cargando perfil...</p>
-          </template>
+        </template>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose @click="closeDialog">
-            <Button variant="secondary">Cerrar</Button>
+            <Button class="bg-colorLime hover:bg-primaryGreen">Cerrar</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
