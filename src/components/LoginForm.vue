@@ -43,7 +43,6 @@ const email = ref('')
 
 button {
   background-color: #0A2E59;
-
 }
 
 

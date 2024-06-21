@@ -2,10 +2,12 @@ import { createMemoryHistory, createRouter } from "vue-router";
 
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
+import DashboardView from "@/views/DashboardView.vue";
 
 const routes = [
-  { path: "/", name: "inicio", component: HomeView },
-  { path: "/a", name: "login", component: LoginView },
+  { path: "/2", name: "inicio", component: HomeView },
+  { path: "/1", name: "login", component: LoginView },
+  { path: "/", name: "dashboard", component: DashboardView },
 ];
 
 const router = createRouter({
