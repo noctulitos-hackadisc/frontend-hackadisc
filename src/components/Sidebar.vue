@@ -28,7 +28,8 @@
       />
     </div>
     <div class="space-y-4 mt-auto">
-      <SidebarItem icon="profile" text="Ver perfil" />
+      <SidebarItem icon="profile" text="Ver perfil" @click="openProfile" />
+
       <SidebarItem
         icon="logout"
         text="Cerrar sesión"
@@ -36,6 +37,7 @@
         class="hover:bg-red-500"
 
       />
+      <ProfileComponent ref="profileDialog" />
       <div class="relative my-4">
           <div class="absolute inset-0 flex items-center">
             <span class="w-full border-t" />
@@ -54,4 +56,13 @@ import { useAuth } from "@/stores/store";
 import SidebarItem from "@/components/SideBarItem.vue";
 import DropdownSidebarItem from "@/components/DropdownSidebarItem.vue";
 import RehaviourIcon from "@/components/icons/RehaviourIcon.vue";
+import ProfileComponent from "@/components/ProfileComponent.vue";
+import { ref } from "vue";
+
+const profileDialog = ref(null);
+
+const openProfile = () => {
+  profileDialog.value?.openDialog();
+};
+
 </script>
