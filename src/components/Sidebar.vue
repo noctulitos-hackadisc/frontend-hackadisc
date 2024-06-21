@@ -30,4 +30,5 @@
 <script setup>
 import { useAuth } from "@/stores/store";
 import SidebarItem from "@/components/SideBarItem.vue";
+import DropdownSidebarItem from "@/components/DropdownSidebarItem.vue";
 </script>

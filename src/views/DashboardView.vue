@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen">
     <div class="flex-grow p-8">
-      <div class="container mx-auto p-4">
+      <div class="container mx-auto">
         <h1 class="text-2xl mb-4 text-center">Datos de medición</h1>
 
         <!-- Cards for KPI Metrics -->
@@ -79,7 +79,7 @@
 import { ref } from "vue";
 import Card from "@/components/CardKpi.vue";
 import BarChart from "@/components/BarChart.vue";
-import PolarAreaChart from "@/components/PolarAreaChart.vue";
+import Car2 from "@/components/CardKpi2.vue";
 
 const dataset = [
   {
@@ -304,7 +304,7 @@ const averageWorkingUnderPressure =
 
 // Additional metrics
 const improvementPercentage =
-  (dataset.filter((item) => item.adaptability_to_change > 0.5).length /
+  (dataset.filter((item) => item.adaptability_to_change > 0.8).length /
     totalEvaluations) *
   100;
 const completedEvaluationsThisMonth = dataset.filter(

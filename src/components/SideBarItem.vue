@@ -17,6 +17,8 @@ import CompanyIcon from "./icons/CompanyIcon.vue";
 import DashboardIcon from "./icons/DashboardIcon.vue";
 import InterventionIcon from "./icons/InterventionIcon.vue";
 import PerfilIcon from "./icons/PerfilIcon.vue";
+import MetricIcon from "./icons/MetricIcon.vue";
+import StatsIcon from "./icons/StatsIcon.vue";
 
 const props = defineProps({
   icon: {
