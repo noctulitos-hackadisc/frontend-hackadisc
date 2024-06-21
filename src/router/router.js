@@ -6,6 +6,7 @@ import HomeView from "@/views/HomeView.vue";
 import DashboardView from "@/views/DashboardView.vue";
 import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
+import StatisticsView from "@/views/StatisticsView.vue";
 
 const routes = [
   {
@@ -38,6 +39,12 @@ const routes = [
     component: AddInterventionView,
     meta: { requiresAuth: true },
   },
+  {
+    path: "/statistics",
+    name: "Statistics",
+    component: StatisticsView,
+    meta: { requiresAuth: true },
+  }
 ];
 
 const router = createRouter({

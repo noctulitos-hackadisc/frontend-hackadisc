@@ -5,8 +5,8 @@
         <DropdownIcon class="mr-3"/>
       </div>
       <div v-if="isOpen" class="pl-4 space-y-2">
-        <SidebarItem icon="estadisticas" text="Datos" @click="$router.push({name:'Dashboard'})" />
-        <SidebarItem icon="metricas" text="Estadísticas" />
+        <SidebarItem icon="statistics" text="Datos" @click="$router.push({name:'Dashboard'})" />
+        <SidebarItem icon="metrics" text="Estadísticas" @click="$router.push({name:'Statistics'})"/>
       </div>
     </div>
   </template>

@@ -14,11 +14,11 @@
       />
     </div>
     <div class="flex-1 space-y-4 py-5">
-      <SidebarItem icon="gestion" text="Gestión de usuarios" />
-      <SidebarItem icon="empresa" text="Ver empresa" />
+      <SidebarItem icon="managment" text="Gestión de usuarios" />
+      <SidebarItem icon="company" text="Ver empresa" />
       <DropdownSidebarItem icon="dashboard" text="Dashboard KPI" />
       <SidebarItem
-        icon="capacitaciones"
+        icon="interventions"
         text="Ver capacitaciones"
         @click="$router.push({ name: 'Interventions' })"
       />

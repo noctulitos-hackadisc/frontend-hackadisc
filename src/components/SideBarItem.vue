@@ -39,19 +39,19 @@ const iconComponent = computed(() => {
       return SettingsIcon;
     case "logout":
       return LogoutIcon;
-    case "gestion":
+    case "managment":
       return GestionIcon;
-    case "empresa":
+    case "company":
       return CompanyIcon;
     case "dashboard":
       return DashboardIcon;
-    case "capacitaciones":
+    case "interventions":
       return InterventionIcon;
     case "perfil":
       return PerfilIcon;
-    case 'metricas':
+    case 'metrics':
       return MetricIcon;
-    case 'estadisticas':
+    case 'statistics':
       return StatsIcon;
     default:
       return null;
