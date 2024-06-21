@@ -3,10 +3,10 @@
       <h1 class="text-4xl font-bold my-16 ml-10">Dashboard de Métricas</h1>
   
       <div class="container mx-auto">
-        <!-- Renderizar gráficos de línea para cada competencia -->
-        <div v-for="(competencia, index) in competencias" :key="index" class="mb-10">
-          <h2 class="text-xl mb-4">{{ competencia.replace(/_/g, ' ').toUpperCase() }}</h2>
-          <LineChart :data="getLineChartData(competencia)" :options="lineChartOptions" />
+        <!-- Gráfico de Línea - Histórico de Evaluaciones -->
+        <div class="mb-10">
+          <h2 class="text-xl mb-4">Histórico de Evaluaciones</h2>
+          <LineChart :data="lineChartData" :options="lineChartOptions" />
         </div>
   
         <!-- Gráfico Radar - Promedios de Competencias -->
@@ -227,54 +227,45 @@
   },
 ];
   
-  // Obtener todas las competencias
-  const competencias = Object.keys(dataset[0]).filter(key => key !== 'user_id' && key !== 'date');
-  
-  // Función para formatear las fechas y obtener solo el mes
-  const formatMonth = dateStr => {
-    const date = new Date(dateStr);
-    const options = { month: 'short' }; // 'short' para abreviaturas de meses como 'Jan', 'Feb'
-    return date.toLocaleDateString('en-US', options);
-  };
-  
-  // Crear un objeto para contar las evaluaciones por mes y competencia
-  const evaluationsByMonthAndCompetency = {};
-  dataset.forEach(item => {
-    const month = formatMonth(item.date);
-    competencias.forEach(competencia => {
-      if (!evaluationsByMonthAndCompetency[competencia]) {
-        evaluationsByMonthAndCompetency[competencia] = {};
-      }
-      if (!evaluationsByMonthAndCompetency[competencia][month]) {
-        evaluationsByMonthAndCompetency[competencia][month] = 0;
-      }
-      if (item[competencia] !== undefined) {
-        evaluationsByMonthAndCompetency[competencia][month] += 1;
-      }
-    });
-  });
-  
-  // Obtener todos los meses únicos en el dataset
-  const allMonths = [...new Set(dataset.map(item => formatMonth(item.date)))];
-  
-  // Función auxiliar para obtener colores aleatorios
-  const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
-  
-  // Calcula la cantidad total de evaluaciones
-  const totalEvaluations = dataset.length;
-  
   // Función para calcular el promedio de cada métrica
   function calculateAverage(metric) {
     const total = dataset.reduce((acc, cur) => acc + cur[metric], 0);
-    return total / totalEvaluations;
+    return total / dataset.length;
   }
+  
+  // Obtener todas las competencias para el gráfico de línea
+  const competencias = Object.keys(dataset[0]).filter(key => key !== 'user_id' && key !== 'date');
+  
+  // Datos y opciones para el gráfico de línea
+  const lineChartData = ref({
+    labels: dataset.map(item => item.date),
+    datasets: competencias.map(competencia => ({
+      label: competencia.replace(/_/g, ' ').toUpperCase(),
+      data: dataset.map(item => item[competencia]),
+      borderColor: getRandomColor(),
+      borderWidth: 2,
+      fill: false
+    }))
+  });
+  
+  const lineChartOptions = ref({
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        ticks: {
+          display: true,
+          color: '#333'
+        }
+      },
+      y: {
+        ticks: {
+          display: true,
+          color: '#333'
+        }
+      }
+    }
+  });
   
   // Datos y opciones para el gráfico radar
   const radarChartData = ref({
@@ -309,41 +300,15 @@
     }
   });
   
-  // Opciones para el gráfico de línea
-  const lineChartOptions = ref({
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        ticks: {
-          display: true,
-          color: '#333'
-        }
-      },
-      y: {
-        ticks: {
-          display: true,
-          color: '#333'
-        }
-      }
+  // Función auxiliar para obtener colores aleatorios
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
     }
-  });
-  
-  // Función para obtener los datos de línea para una competencia específica
-  const getLineChartData = competencia => {
-    return {
-      labels: allMonths,
-      datasets: [
-        {
-          label: competencia.replace(/_/g, ' ').toUpperCase(),
-          data: allMonths.map(month => evaluationsByMonthAndCompetency[competencia][month] || 0),
-          borderColor: getRandomColor(),
-          borderWidth: 2,
-          fill: false
-        }
-      ]
-    };
-  };
+    return color;
+  }
   </script>
   
   <style scoped>
@@ -352,4 +317,3 @@
     height: 400px; /* Ajusta la altura según tus necesidades */
   }
   </style>
-  
