@@ -10,7 +10,7 @@ export const useAuth = defineStore(
 
     function storeUser(data) {
       user.value = data;
-      router.push({ name: "Dashboard" });
+      router.push({ name: "Home" });
     }
 
     function destoreUser() {
