@@ -14,7 +14,7 @@
           comportamiento al fortalecer las competencias ligadas a la seguridad
           mediante el uso de realidad virtual e inteligencia artificial"
         </blockquote>
-        <p class="mt-4">Noctulitos</p>
+        <p class="mt-4">Noctulitos © 2024</p>
       </div>
     </div>
 
