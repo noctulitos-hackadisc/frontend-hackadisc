@@ -12,11 +12,11 @@
     </div>
     <div v-if="isOpen" class="pl-4 space-y-2 mt-2">
       <SidebarItem
-        icon="estadisticas"
+        icon="statistics"
         text="Datos"
         @click="$router.push({ name: 'Dashboard' })"
       />
-      <SidebarItem icon="metricas" text="Estadísticas" @click="$router.push({ name: 'Statistics' })" />
+      <SidebarItem icon="metrics" text="Estadísticas" @click="$router.push({ name: 'Statistics' })" />
     </div>
   </div>
 </template>
