@@ -7,6 +7,7 @@ import DashboardView from "@/views/DashboardView.vue";
 import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
 import StatisticsView from "@/views/StatisticsView.vue";
+import CompanyView from "@/views/CompanyView.vue";
 
 const routes = [
   {
@@ -28,6 +29,12 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/company",
+    name: "Company",
+    component: CompanyView,
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/interventions",
     name: "Interventions",
     component: InterventionsView,
@@ -44,7 +51,7 @@ const routes = [
     name: "Statistics",
     component: StatisticsView,
     meta: { requiresAuth: true },
-  }
+  },
 ];
 
 const router = createRouter({
