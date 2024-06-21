@@ -4,8 +4,8 @@ import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 
 const routes = [
-  { path: "/a", name: "inicio", component: HomeView },
-  { path: "/", name: "login", component: LoginView },
+  { path: "/", name: "inicio", component: HomeView },
+  { path: "/a", name: "login", component: LoginView },
 ];
 
 const router = createRouter({

@@ -1,6 +1,6 @@
 <template>
-    <div class="flex items-center p-3 cursor-pointer hover:bg-colorLime hover:border-r-2 rounded-full">
-      <component :is="iconComponent" class="w-6 h-6" />
+    <div class="flex items-center p-3 cursor-pointer hover:bg-colorLime rounded-full">
+      <component :is="iconComponent" class="w-7 h-8" />
       <span class="ml-2">{{ text }}</span>
     </div>
 </template>
