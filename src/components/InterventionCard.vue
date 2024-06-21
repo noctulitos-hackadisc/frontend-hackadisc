@@ -1,5 +1,5 @@
 <template>
-  <Card class="grid w-[200px] xl:w-[380px] max-h-[300px] min-h-[300px]">
+  <Card class="grid w-[250px] xl:w-[380px] max-h-[300px] min-h-[300px]">
     <CardHeader>
       <CardTitle>{{ props.data.type }}</CardTitle>
       <CardDescription>{{ props.data.details }}</CardDescription>
@@ -21,7 +21,7 @@
       </div>
     </CardContent>
     <CardFooter>
-      <Button class="w-full bg-primaryGreen hover:bg-green-500">
+      <Button class="w-full bg-primaryGreen hover:bg-colorLime">
         <Check class="mr-2 h-4 w-4" /> Asignar intervención
       </Button>
     </CardFooter>
