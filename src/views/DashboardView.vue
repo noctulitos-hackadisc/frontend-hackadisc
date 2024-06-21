@@ -1,73 +1,71 @@
 <template>
-  <div class="flex h-screen">
+  <div class="w-full overflow-x-auto">
     <div class="flex-grow p-8">
       <div class="container mx-auto">
-        <h1 class="text-2xl mb-4 text-center">Datos de medición</h1>
+        <h1 class="text-2xl mb-4 text-center">Dashboard de Métricas</h1>
 
-        <!-- Cards for KPI Metrics -->
+        <!-- Cards para Métricas KPI -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <Card
+          <CardKpi
             title="Evaluaciones Totales"
             :value="totalEvaluations"
             shadowClass="shadow-2xl bg-blue-200"
           />
-          <Card
+          <CardKpi
+            title="Evaluaciones este mes"
+            :value="evaluationsThisMonth"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi
             title="Porcentaje de mejora"
             :value="improvementPercentage.toFixed(2) + '%'"
             shadowClass="shadow-2xl"
           />
-          <Card
-            title="Evaluaciones realizadas este mes"
-            :value="completedEvaluationsThisMonth"
-            shadowClass="shadow-2xl"
-          />
-          <Card
+          <CardKpi
             title="Satisfacción del Empleado"
-            :value="employeeSatisfaction + '%'"
+            :value="employeeSatisfaction.toFixed(2) + '%'"
             shadowClass="shadow-2xl"
           />
         </div>
 
-        <!-- More detailed metrics -->
-
-        <!-- More detailed metrics -->
+        <!-- Métricas detalladas -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          <Car2
-            title="Promedio de adaptabilidad"
+          <CardKpi2
+            title="Promedio de Adaptabilidad"
             :value="averageAdaptability.toFixed(2)"
             shadowClass="shadow-2xl"
           />
-          <Car2
-            title="Promedio de Conducta segura"
+          <CardKpi2
+            title="Promedio de Conducta Segura"
             :value="averageSafeConduct.toFixed(2)"
             shadowClass="shadow-2xl"
           />
-          <Car2
+          <CardKpi2
             title="Promedio de Dinamismo"
             :value="averageDynamism.toFixed(2)"
             shadowClass="shadow-2xl"
           />
-          <Car2
+          <CardKpi2
             title="Promedio de Efectividad Personal"
             :value="averagePersonalEffectiveness.toFixed(2)"
             shadowClass="shadow-2xl"
           />
-          <Car2
+          <CardKpi2
             title="Promedio de Iniciativa"
             :value="averageInitiative.toFixed(2)"
             shadowClass="shadow-2xl"
           />
-          <Car2
-            title="Promedio de Trabajo bajo presión"
+          <CardKpi2
+            title="Promedio de Trabajo bajo Presión"
             :value="averageWorkingUnderPressure.toFixed(2)"
             shadowClass="shadow-2xl"
           />
         </div>
 
-        <!-- Centralized Bar Chart -->
+        <!-- Gráfico de Barras -->
         <div class="flex justify-center">
-          <div class="w-auto lg:w-2/3 py-5 m-10">
-            <BarChart :data="polarAreaChartData" :options="chartOptions" />
+          <div class="w-full lg:w-2/3 py-5">
+            <BarChart :data="barChartData" :options="chartOptions" />
           </div>
         </div>
       </div>
@@ -77,10 +75,11 @@
 
 <script setup>
 import { ref } from "vue";
-import Card from "@/components/CardKpi.vue";
+import CardKpi from "@/components/CardKpi.vue";
 import BarChart from "@/components/BarChart.vue";
-import Car2 from "@/components/CardKpi2.vue";
+import CardKpi2 from "@/components/CardKpi2.vue";
 
+// Dataset de ejemplo
 const dataset = [
   {
     user_id: 6,
@@ -284,61 +283,63 @@ const dataset = [
   },
 ];
 
-// Compute various metrics
+// Cálculo de métricas
 const totalEvaluations = dataset.length;
-const averageAdaptability =
-  dataset.reduce((acc, cur) => acc + cur.adaptability_to_change, 0) /
-  totalEvaluations;
-const averageSafeConduct =
-  dataset.reduce((acc, cur) => acc + cur.safe_conduct, 0) / totalEvaluations;
-const averageDynamism =
-  dataset.reduce((acc, cur) => acc + cur.dynamism_energy, 0) / totalEvaluations;
-const averagePersonalEffectiveness =
-  dataset.reduce((acc, cur) => acc + cur.personal_effectiveness, 0) /
-  totalEvaluations;
-const averageInitiative =
-  dataset.reduce((acc, cur) => acc + cur.initiative, 0) / totalEvaluations;
-const averageWorkingUnderPressure =
-  dataset.reduce((acc, cur) => acc + cur.working_under_pressure, 0) /
-  totalEvaluations;
+const improvementPercentage = calculateImprovementPercentage(dataset);
+const evaluationsThisMonth = calculateEvaluationsThisMonth(dataset);
+const employeeSatisfaction = calculateEmployeeSatisfaction(dataset);
+const averageAdaptability = calculateAverage("adaptability_to_change");
+const averageSafeConduct = calculateAverage("safe_conduct");
+const averageDynamism = calculateAverage("dynamism_energy");
+const averagePersonalEffectiveness = calculateAverage("personal_effectiveness");
+const averageInitiative = calculateAverage("initiative");
+const averageWorkingUnderPressure = calculateAverage("working_under_pressure");
 
-// Additional metrics
-const improvementPercentage =
-  (dataset.filter((item) => item.adaptability_to_change > 0.8).length /
-    totalEvaluations) *
-  100;
-const completedEvaluationsThisMonth = dataset.filter(
-  (item) => new Date(item.date).getMonth() === new Date().getMonth()
-).length;
-const employeeSatisfaction = (
-  (dataset.reduce(
-    (acc, cur) =>
-      acc +
-      (cur.adaptability_to_change +
-        cur.safe_conduct +
-        cur.dynamism_energy +
-        cur.personal_effectiveness +
-        cur.initiative +
-        cur.working_under_pressure),
-    0
-  ) /
-    (totalEvaluations * 6)) *
-  100
-).toFixed(2);
+// Función para calcular porcentaje de mejora
+function calculateImprovementPercentage(dataset) {
+  const highPerformers = dataset.filter(item => item.adaptability_to_change > 0.8);
+  return (highPerformers.length / totalEvaluations) * 100;
+}
 
-// Chart data
-const polarAreaChartData = ref({
+// Función para calcular evaluaciones este mes
+function calculateEvaluationsThisMonth(dataset) {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  return dataset.filter(item => new Date(item.date).getMonth() === currentMonth).length;
+}
+
+// Función para calcular satisfacción del empleado
+function calculateEmployeeSatisfaction(dataset) {
+  const totalScores = dataset.reduce((acc, cur) =>
+    acc +
+    cur.adaptability_to_change +
+    cur.safe_conduct +
+    cur.dynamism_energy +
+    cur.personal_effectiveness +
+    cur.initiative +
+    cur.working_under_pressure, 0);
+  return (totalScores / (totalEvaluations * 6)) * 100;
+}
+
+// Función para calcular promedio
+function calculateAverage(metric) {
+  const total = dataset.reduce((acc, cur) => acc + cur[metric], 0);
+  return total / totalEvaluations;
+}
+
+// Datos para el gráfico de barras
+const barChartData = ref({
   labels: [
-    "Adaptability",
-    "Safe Conduct",
-    "Dynamism",
-    "Personal Effectiveness",
-    "Initiative",
-    "Working Under Pressure",
+    "Adaptabilidad",
+    "Conducta Segura",
+    "Dinamismo",
+    "Efectividad Personal",
+    "Iniciativa",
+    "Trabajo Bajo Presión",
   ],
   datasets: [
     {
-      label: "Comparativa",
+      label: "Promedios",
       data: [
         averageAdaptability,
         averageSafeConduct,
@@ -359,6 +360,7 @@ const polarAreaChartData = ref({
   ],
 });
 
+// Opciones para el gráfico de barras
 const chartOptions = ref({
   responsive: true,
   maintainAspectRatio: false,
