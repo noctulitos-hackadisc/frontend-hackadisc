@@ -6,14 +6,12 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
 const props = defineProps({
   title: String,
   value: [String, Number],
   shadowClass: {
     type: String,
-    default: 'shadow-md'
-  }
-})
+    default: "shadow-md",
+  },
+});
 </script>

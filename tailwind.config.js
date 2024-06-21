@@ -1,18 +1,18 @@
-const animate = require("tailwindcss-animate")
+const animate = require("tailwindcss-animate");
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ["class"],
   safelist: ["dark"],
   prefix: "",
-  
+
   content: [
-    './pages/**/*.{js,jsx,vue}',
-    './components/**/*.{js,jsx,vue}',
-    './app/**/*.{js,jsx,vue}',
-    './src/**/*.{js,jsx,vue}',
-	],
-  
+    "./pages/**/*.{js,jsx,vue}",
+    "./components/**/*.{js,jsx,vue}",
+    "./app/**/*.{js,jsx,vue}",
+    "./src/**/*.{js,jsx,vue}",
+  ],
+
   theme: {
     container: {
       center: true,
@@ -23,14 +23,14 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'custom-bg': "url('/src/assets/bg-pignus.png)",
+        "custom-bg": "url('/src/assets/bg-pignus.png)",
       },
       colors: {
-        'primaryGreen': '#4CA650',
-        'primaryBlue': '#0A2E59',
-        'secundaryGreen': '#77B800',
-        'colorLime': '#7ECA27',
-        'muted-foreground': '#6b7280',
+        primaryGreen: "#4CA650",
+        primaryBlue: "#0A2E59",
+        secundaryGreen: "#77B800",
+        colorLime: "#7ECA27",
+        "muted-foreground": "#6b7280",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -66,7 +66,7 @@ module.exports = {
         },
       },
       borderRadius: {
-      	xl: "calc(var(--radius) + 4px)",
+        xl: "calc(var(--radius) + 4px)",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
@@ -82,10 +82,10 @@ module.exports = {
         },
         "collapsible-down": {
           from: { height: 0 },
-          to: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: "var(--radix-collapsible-content-height)" },
         },
         "collapsible-up": {
-          from: { height: 'var(--radix-collapsible-content-height)' },
+          from: { height: "var(--radix-collapsible-content-height)" },
           to: { height: 0 },
         },
       },
@@ -98,4 +98,4 @@ module.exports = {
     },
   },
   plugins: [animate],
-}
+};

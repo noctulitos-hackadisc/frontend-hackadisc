@@ -1,7 +1,14 @@
 <template>
-  <div class="flex flex-col h-full p-2 bg-green text-white bg-primaryGreen">
-    <div>
-      <img src="/src/assets/logoPignus.png" alt="" width="200px" class="py-8">
+  <div
+    class="flex flex-col h-full p-2 bg-green text-white bg-primaryBlue w-[250px]"
+  >
+    <div class="grid place-items-center">
+      <img
+        src="/src/assets/pignus-logo-white.webp"
+        alt=""
+        width="200px"
+        class="py-8"
+      />
     </div>
     <div class="flex-1 space-y-4 py-5">
       <SidebarItem icon="gestion" text="Gestión de usuarios" />
@@ -17,6 +24,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import SidebarItem from '@/components/SideBarItem.vue';
+import { ref } from "vue";
+import SidebarItem from "@/components/SideBarItem.vue";
 </script>
