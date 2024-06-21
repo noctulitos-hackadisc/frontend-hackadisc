@@ -37,7 +37,7 @@
         class="hover:bg-red-500"
 
       />
-      <ProfileComponent ref="profileDialog" />
+      <ProfileComponent :userProfile="userProfile" ref="profileDialog" />
       <div class="relative my-4">
           <div class="absolute inset-0 flex items-center">
             <span class="w-full border-t" />
@@ -58,6 +58,9 @@ import DropdownSidebarItem from "@/components/DropdownSidebarItem.vue";
 import RehaviourIcon from "@/components/icons/RehaviourIcon.vue";
 import ProfileComponent from "@/components/ProfileComponent.vue";
 import { ref } from "vue";
+import { userProfile } from "../bash/ProfileService";
+
+
 
 const profileDialog = ref(null);
 
