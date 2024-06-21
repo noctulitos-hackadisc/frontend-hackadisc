@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-6 rounded-lg shadow-lg bg-gradient-to-l from-complementary5 to-blue-500 hover:scale-105 transition-all duration-500 ease-in-out"
+    class="p-6 rounded-lg shadow-lg bg-gradient-to-l from-complementary5 to-blue-500"
   >
     <h2 class="text-lg font-semibold mb-2">{{ title }}</h2>
     <p v-if="props.whole_number" class="text-3xl font-bold">{{ value }}</p>
