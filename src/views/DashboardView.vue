@@ -2,7 +2,7 @@
   <div class="w-full overflow-x-auto">
     <h1 class="text-4xl font-bold my-16 ml-10">Dashboard de Métricas</h1>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto mb-12">
       <!-- Cards para Métricas KPI -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         <CardKpi
@@ -60,12 +60,15 @@
           shadowClass="shadow-2xl"
         />
       </div>
+    </div>
 
-      <!-- Gráfico de Barras -->
-      <div class="flex justify-center">
-        <div class="w-full lg:w-2/3 py-5">
-          <BarChart :data="barChartData" :options="chartOptions" />
-        </div>
+    <div class="border-b mx-10"></div>
+
+    <h1 class="text-4xl font-bold my-16 ml-10">Promedios</h1>
+    <!-- Gráfico de Barras -->
+    <div class="flex justify-center mb-16">
+      <div class="w-full lg:w-2/3 py-5">
+        <BarChart :data="barChartData" :options="chartOptions" />
       </div>
     </div>
   </div>
