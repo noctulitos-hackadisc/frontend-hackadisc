@@ -6,7 +6,7 @@
     <div class="flex-1 space-y-4 py-5">
       <SidebarItem icon="gestion" text="Gestión de usuarios" />
       <SidebarItem icon="empresa" text="Ver empresa" />
-      <SidebarItem icon="dashboard" text="Dashboard KPI" />
+      <DropdownSidebarItem icon="dashboard" text="Dashboard KPI" />
       <SidebarItem icon="capacitaciones" text="Ver capacitaciones" />
     </div>
     <div class="space-y-4 mt-auto">
@@ -19,4 +19,5 @@
 <script setup>
 import { ref } from 'vue';
 import SidebarItem from '@/components/SideBarItem.vue';
+import DropdownSidebarItem from '@/components/DropdownSidebarItem.vue';
 </script>

@@ -1,23 +1,28 @@
 <template>
   <div>
-    <Bar :data="data" :options="options" />
+    <canvas ref="canvas"></canvas>
   </div>
 </template>
 
 <script setup>
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js'
+import { ref, onMounted } from 'vue'
+import { Chart, BarController, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
+// Registrar los componentes necesarios para el gráfico de barras
+Chart.register(BarController, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const props = defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
-  options: {
-    type: Object,
-    required: true,
-  }
+  data: Object,
+  options: Object
+})
+
+const canvas = ref(null)
+
+onMounted(() => {
+  new Chart(canvas.value, {
+    type: 'bar',
+    data: props.data,
+    options: props.options
+  })
 })
 </script>

@@ -3,35 +3,45 @@
     <Nav />
     <div class="flex-grow p-8">
       <div class="container mx-auto p-4">
-        <h1 class="text-2xl mb-4 text-center">Dashboard KPI</h1>
+        <h1 class="text-2xl mb-4 text-center">Datos de medición</h1>
+        
+        <!-- Cards for KPI Metrics -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <Card title="Total Evaluations" :value="totalEvaluations" shadowClass="shadow-2xl" />
+          <Card title="Evaluaciones Totales" :value="totalEvaluations" shadowClass="shadow-2xl bg-blue-200" />
+          <Card title="Porcentaje de mejora" :value="improvementPercentage.toFixed(2) + '%'" shadowClass="shadow-2xl"/>
+          <Card title="Evaluaciones realizadas este mes" :value="completedEvaluationsThisMonth" shadowClass="shadow-2xl" />
+          <Card title="Satisfacción del Empleado" :value="employeeSatisfaction+ '%'"  shadowClass="shadow-2xl" />
         </div>
+
+        <!-- More detailed metrics -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          <Card title="Average Adaptability" :value="averageAdaptability.toFixed(2)" shadowClass="shadow-2xl" />
-          <Card title="Average Safe Conduct" :value="averageSafeConduct.toFixed(2)" shadowClass="shadow-2xl" />
-          <Card title="Average Dynamism" :value="averageDynamism.toFixed(2)" shadowClass="shadow-2xl" />
-          <Card title="Average Personal Effectiveness" :value="averagePersonalEffectiveness.toFixed(2)" shadowClass="shadow-2xl" />
-          <Card title="Average Initiative" :value="averageInitiative.toFixed(2)" shadowClass="shadow-2xl" />
-          <Card title="Average Working Under Pressure" :value="averageWorkingUnderPressure.toFixed(2)" shadowClass="shadow-2xl" />
+          <Car2 title="Promedio de adaptabilidad" :value="averageAdaptability.toFixed(2)" shadowClass="shadow-2xl" />
+          <Car2 title="Promedio de Conducta segura" :value="averageSafeConduct.toFixed(2)" shadowClass="shadow-2xl" />
+          <Car2 title="Promedio de Dinamismo" :value="averageDynamism.toFixed(2)" shadowClass="shadow-2xl" />
+          <Car2 title="Promedio de Efectividad Personal" :value="averagePersonalEffectiveness.toFixed(2)" shadowClass="shadow-2xl" />
+          <Car2 title="Promedio de Iniciativa" :value="averageInitiative.toFixed(2)" shadowClass="shadow-2xl" />
+          <Car2 title="Promedio de Trabajo bajo presión" :value="averageWorkingUnderPressure.toFixed(2)" shadowClass="shadow-2xl" />
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <PolarAreaChart :data="polarAreaChartData" :options="chartOptions" />
-          <BarChart :data="adaptabilityChartData" :options="chartOptions" />
-          <BarChart :data="conductChartData" :options="chartOptions" />
-          <BarChart :data="dynamismChartData" :options="chartOptions" />
+
+        <!-- Centralized Bar Chart -->
+        <div class="flex justify-center">
+          <div class="w-auto lg:w-2/3 py-5 m-10">
+            <BarChart :data="polarAreaChartData" :options="chartOptions" />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
+
 <script setup>
 import { ref } from 'vue'
 import Card from '@/components/CardKpi.vue'
+import Car2 from '@/components/CardKpi2.vue'
 import BarChart from '@/components/BarChart.vue'
-import PolarAreaChart from '@/components/PolarAreaChart.vue'
 import Nav from '@/components/Nav.vue'
+
 
 const dataset = [
   { user_id: 6, adaptability_to_change: 0.32, safe_conduct: 0.48, dynamism_energy: 0.41, personal_effectiveness: 0.15, initiative: 0.89, working_under_pressure: 0.56, date: "2024-06-09 05:01:42" },
@@ -56,6 +66,7 @@ const dataset = [
   { user_id: 491, adaptability_to_change: 0.65, safe_conduct: 0.29, dynamism_energy: 0.28, personal_effectiveness: 0.16, initiative: 0.64, working_under_pressure: 0.23, date: "2024-04-13 11:54:27" }
 ]
 
+// Compute various metrics
 const totalEvaluations = dataset.length
 const averageAdaptability = dataset.reduce((acc, cur) => acc + cur.adaptability_to_change, 0) / totalEvaluations
 const averageSafeConduct = dataset.reduce((acc, cur) => acc + cur.safe_conduct, 0) / totalEvaluations
@@ -64,50 +75,17 @@ const averagePersonalEffectiveness = dataset.reduce((acc, cur) => acc + cur.pers
 const averageInitiative = dataset.reduce((acc, cur) => acc + cur.initiative, 0) / totalEvaluations
 const averageWorkingUnderPressure = dataset.reduce((acc, cur) => acc + cur.working_under_pressure, 0) / totalEvaluations
 
-const adaptabilityChartData = ref({
-  labels: dataset.map(data => data.date),
-  datasets: [
-    {
-      label: 'Adaptabilidad al cambio',
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
-      borderWidth: 1,
-      data: dataset.map(data => data.adaptability_to_change),
-    }
-  ],
-})
+// Additional metrics
+const improvementPercentage = (dataset.filter(item => item.adaptability_to_change > 0.5).length / totalEvaluations) * 100
+const completedEvaluationsThisMonth = dataset.filter(item => new Date(item.date).getMonth() === new Date().getMonth()).length
+const employeeSatisfaction = ((dataset.reduce((acc, cur) => acc + (cur.adaptability_to_change + cur.safe_conduct + cur.dynamism_energy + cur.personal_effectiveness + cur.initiative + cur.working_under_pressure), 0) / (totalEvaluations * 6)) * 100).toFixed(2);
 
-const conductChartData = ref({
-  labels: dataset.map(data => data.date),
-  datasets: [
-    {
-      label: 'Conductas seguras',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1,
-      data: dataset.map(data => data.safe_conduct),
-    }
-  ],
-})
-
-const dynamismChartData = ref({
-  labels: dataset.map(data => data.date),
-  datasets: [
-    {
-      label: 'Dinamismo y Energía',
-      backgroundColor: 'rgba(255, 206, 86, 0.2)',
-      borderColor: 'rgba(255, 206, 86, 1)',
-      borderWidth: 1,
-      data: dataset.map(data => data.dynamism_energy),
-    }
-  ],
-})
-
+// Chart data
 const polarAreaChartData = ref({
   labels: ['Adaptability', 'Safe Conduct', 'Dynamism', 'Personal Effectiveness', 'Initiative', 'Working Under Pressure'],
   datasets: [
     {
-      label: 'Metrics Comparison',
+      label: 'Comparativa',
       data: [
         averageAdaptability,
         averageSafeConduct,
@@ -117,33 +95,19 @@ const polarAreaChartData = ref({
         averageWorkingUnderPressure
       ],
       backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
+        '#D2F39B',
+        '#58A8F7',
+        '#B485B7',
+        '#21B6B8',
+        '#4CA650',
+        '#6DCFCB'
       ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1,
     }
   ],
 })
 
 const chartOptions = ref({
   responsive: true,
-  scales: {
-    y: {
-      beginAtZero: true,
-      max: 1,
-    },
-  },
+  maintainAspectRatio: false,
 })
 </script>

@@ -14,7 +14,9 @@ import GestionIcon from './icons/GestionIcon.vue';
 import CompanyIcon from './icons/CompanyIcon.vue'; 
 import DashboardIcon from './icons/DashboardIcon.vue'; 
 import InterventionIcon from './icons/InterventionIcon.vue'; 
-import PerfilIcon from './icons/PerfilIcon.vue'; 
+import PerfilIcon from './icons/PerfilIcon.vue';
+import MetricIcon from './icons/MetricIcon.vue';
+import StatsIcon from './icons/StatsIcon.vue';
 
 const props = defineProps({
   icon: {
@@ -45,6 +47,10 @@ const iconComponent = computed(() => {
       return InterventionIcon;
     case 'perfil':
       return PerfilIcon;
+    case 'metricas':
+      return MetricIcon;
+    case 'estadisticas':
+      return StatsIcon;
     default:
       return null;
   }
