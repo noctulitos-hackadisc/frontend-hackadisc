@@ -1,8 +1,6 @@
 <template>
-  <div class="flex h-screen">
-    <div class="flex-grow p-8">
-      <h1 class="text-3xl font-bold">Bienvenido a la homepage</h1>
-    </div>
+  <div class="w-full overflow-x-auto">
+    <h1 class="text-4xl font-bold my-16 ml-10">Bienvenido a la homepage</h1>
   </div>
 </template>
 

@@ -1,8 +1,9 @@
 <template>
-  <div class="p-6 bg-secundaryLime rounded-lg shadow-lg">
+  <div
+    class="p-6 rounded-lg shadow-lg bg-gradient-to-l from-secundaryLime to-green-500"
+  >
     <h2 class="text-lg font-semibold mb-2">{{ title }}</h2>
-    <p v-if="props.whole_number" class="text-3xl font-bold">{{ value }}</p>
-    <p v-else class="text-3xl font-bold">{{ value }}</p>
+    <p class="text-3xl font-bold">{{ value }}</p>
   </div>
 </template>
 
@@ -10,6 +11,5 @@
 const props = defineProps({
   title: String,
   value: [String, Number],
-  whole_number: Boolean,
 });
 </script>
