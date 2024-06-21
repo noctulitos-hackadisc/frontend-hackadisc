@@ -1,8 +1,11 @@
 <template>
   <div
-    class="flex flex-col h-full p-2 bg-green text-white bg-primaryBlue w-[250px]"
+    class="flex flex-col h-full p-2 bg-green text-white bg-primaryBlue min-w-[250px] max-w-[250px]"
   >
-    <div class="grid place-items-center">
+    <div
+      class="grid place-items-center hover:cursor-pointer"
+      @click="$router.push({ name: 'Home' })"
+    >
       <img
         src="/src/assets/pignus-logo-white.webp"
         alt=""
@@ -14,7 +17,11 @@
       <SidebarItem icon="gestion" text="Gestión de usuarios" />
       <SidebarItem icon="empresa" text="Ver empresa" />
       <DropdownSidebarItem icon="dashboard" text="Dashboard KPI" />
-      <SidebarItem icon="capacitaciones" text="Ver capacitaciones" />
+      <SidebarItem
+        icon="capacitaciones"
+        text="Ver capacitaciones"
+        @click="$router.push({ name: 'Interventions' })"
+      />
     </div>
     <div class="space-y-4 mt-auto">
       <SidebarItem icon="perfil" text="Ver perfil" />

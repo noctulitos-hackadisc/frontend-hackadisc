@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-flex h-screen">
+  <div class="inline-flex h-screen w-screen">
     <Sidebar v-if="auth.user" />
     <RouterView />
   </div>

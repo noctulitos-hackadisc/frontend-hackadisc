@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuth } from "@/stores/store";
 
-import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
+import HomeView from "@/views/HomeView.vue";
 import DashboardView from "@/views/DashboardView.vue";
+import InterventionsView from "@/views/InterventionsView.vue";
+import AddInterventionView from "@/views/AddInterventionView.vue";
 
 const routes = [
   {
@@ -22,6 +24,18 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: DashboardView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/interventions",
+    name: "Interventions",
+    component: InterventionsView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/add-intervention/user/id",
+    name: "AddIntervention",
+    component: AddInterventionView,
     meta: { requiresAuth: true },
   },
 ];
