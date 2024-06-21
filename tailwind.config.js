@@ -22,11 +22,15 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'custom-bg': "url('/src/assets/bg-pignus.png)",
+      },
       colors: {
         'primaryGreen': '#4CA650',
         'primaryBlue': '#0A2E59',
         'secundaryGreen': '#77B800',
         'colorLime': '#7ECA27',
+        'muted-foreground': '#6b7280',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
