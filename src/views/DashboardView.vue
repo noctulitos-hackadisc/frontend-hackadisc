@@ -1,8 +1,9 @@
 <template>
-  <div class="flex h-screen">
-    <Sidebar />
-    <div class="flex-grow p-8">
-      <div class="container mx-auto p-4">
+  <Sidebar />
+
+  <div class="overflow-y-auto w-full">
+    <div class="p-8">
+      <div class="">
         <h1 class="text-2xl mb-4 text-center">Dashboard KPI</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           <Card
@@ -43,7 +44,8 @@
             shadowClass="shadow-2xl"
           />
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-32">
           <PolarAreaChart :data="polarAreaChartData" :options="chartOptions" />
           <BarChart :data="adaptabilityChartData" :options="chartOptions" />
           <BarChart :data="conductChartData" :options="chartOptions" />
