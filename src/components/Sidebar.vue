@@ -13,7 +13,7 @@
     <div class="flex-1 space-y-4 py-5">
       <SidebarItem icon="gestion" text="Gestión de usuarios" />
       <SidebarItem icon="empresa" text="Ver empresa" />
-      <DropdownSidebarItem icon="dashboard" text="Dashboard KPI" />
+      <DropdownSidebarItem icon="dashboard" text="Progreso Empresa" />
       <SidebarItem icon="capacitaciones" text="Ver capacitaciones" />
     </div>
     <div class="space-y-4 mt-auto">
