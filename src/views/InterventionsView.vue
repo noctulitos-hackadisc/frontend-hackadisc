@@ -15,7 +15,9 @@
         :key="index"
         class="grid place-items-center w-[160px] hover:cursor-pointer bg-primaryGreen hover:bg-colorLime"
         :class="{
-          'bg-colorLime text-white': selectedCompetencies.has(competency),
+          'bg-colorLime text-white': selectedCompetencies.has(
+            reverseTranslateCompetency(competency)
+          ),
         }"
         @click="toggleCompetency(competency)"
       >
@@ -29,11 +31,13 @@
       </span>
     </div>
 
-    <div class="grid place-items-center grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-y-10 mb-16 px-16">
+    <div
+      class="grid place-items-center grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-y-10 mb-16 px-16"
+    >
       <InterventionCard
         v-for="(el, index) in filteredInterventions"
         :data="el"
-        :key="index"
+        :key="el.id"
       />
     </div>
   </div>
@@ -76,6 +80,25 @@ const translateCompetency = (competency) => {
   }
 };
 
+const reverseTranslateCompetency = (competency) => {
+  switch (competency) {
+    case "Adaptabilidad al Cambio":
+      return "adaptability_to_change";
+    case "Conducta Segura":
+      return "safe_conduct";
+    case "Dinamismo y Energía":
+      return "dynamism_energy";
+    case "Efectividad Personal":
+      return "personal_effectiveness";
+    case "Iniciativa":
+      return "initiative";
+    case "Trabajo bajo Presión":
+      return "working_under_pressure";
+    default:
+      return competency;
+  }
+};
+
 const competencies = [
   "Adaptabilidad al Cambio",
   "Conducta Segura",
@@ -88,6 +111,7 @@ const competencies = [
 const selectedCompetencies = ref(new Set());
 
 const toggleCompetency = (competency) => {
+  competency = reverseTranslateCompetency(competency);
   if (selectedCompetencies.value.has(competency)) {
     selectedCompetencies.value.delete(competency);
   } else {
@@ -95,14 +119,30 @@ const toggleCompetency = (competency) => {
   }
 };
 
+const stringToArray = (string) => {
+  return string.split(",").map((item) => item.trim());
+};
+
 const filteredInterventions = computed(() => {
+  console.log("selectedCompetencies", selectedCompetencies.value);
+
   if (selectedCompetencies.value.size === 0) {
     return interventions.value;
   }
+
+  console.log(
+    "xd",
+    interventions.value.filter((intervention) =>
+      stringToArray(intervention.intervened_competencies).some((competency) =>
+        selectedCompetencies.value.has(competency)
+      )
+    )
+  );
+
   return interventions.value.filter((intervention) =>
-    intervention.intervened_competencies
-      .map(translateCompetency)
-      .some((competency) => selectedCompetencies.value.has(competency))
+    stringToArray(intervention.intervened_competencies).some((competency) =>
+      selectedCompetencies.value.has(competency)
+    )
   );
 });
 
