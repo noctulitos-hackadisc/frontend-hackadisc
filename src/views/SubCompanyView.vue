@@ -33,7 +33,7 @@ import { useRoute } from "vue-router";
 import { api } from "@/api";
 
 import CompanyTable from "@/components/company/CompanyTable.vue";
-import TableDropdown from "@/components/TableDropdown.vue";
+import TableDropdown from "@/components/company/TableDropdown.vue";
 import TableVisualizationOptions from "@/components/TableVisualizationOptions.vue";
 
 const route = useRoute();
@@ -65,7 +65,7 @@ const columns = [
   {
     accessorKey: "options",
     header: "Acciones",
-    cell: ({ row }) => h(TableDropdown, { id: row.original.id }),
+    cell: ({ row }) => h(TableDropdown, { companyId: row.original.id }),
     enableSorting: false,
   },
 ];
