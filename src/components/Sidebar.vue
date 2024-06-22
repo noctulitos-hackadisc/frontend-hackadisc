@@ -52,11 +52,10 @@
 <script setup>
 import { ref, defineAsyncComponent } from "vue";
 import { useAuth } from "@/stores/store";
+
 import SidebarItem from "@/components/SideBarItem.vue";
 import DropdownSidebarItem from "@/components/DropdownSidebarItem.vue";
 import RehaviourIcon from "@/components/icons/RehaviourIcon.vue";
-// import ProfileComponent from "@/components/ProfileComponent.vue";
-import { userProfile } from "../bash/ProfileService";
 
 const ProfileComponent = defineAsyncComponent(() =>
   import("@/components/ProfileComponent.vue")
