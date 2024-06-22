@@ -1,6 +1,7 @@
 <template>
   <div class="inline-flex space-x-4">
     <button
+      v-if="props.showSubcompanies"
       :disabled="props.subcompanies === 0"
       @click="$router.push({ name: 'SubCompany', params: { id: props.id } })"
       class="inline-flex space-x-4 p-2 border rounded-md text-black"
@@ -44,6 +45,10 @@ const props = defineProps({
   hasWorkers: {
     type: Boolean,
     required: true,
+  },
+  showSubcompanies: {
+    type: Boolean,
+    default: true,
   },
 });
 

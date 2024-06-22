@@ -78,6 +78,8 @@ const columns = [
   },
 ];
 
+console.log(route.params);
+
 const fetchWorkers = async () => {
   loading.value = true;
 
