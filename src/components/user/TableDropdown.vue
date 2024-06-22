@@ -14,7 +14,7 @@
             @click="
               $router.push({
                 name: 'WorkerDashboard',
-                params: { id: $route.params.workerId },
+                params: { workerId: props.workerId },
               })
             "
             class="hover:cursor-pointer"
@@ -69,4 +69,6 @@ const props = defineProps({
     required: true,
   },
 });
+
+console.log(props);
 </script>

@@ -26,7 +26,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/evaluations/worker/:id",
+    path: "/evaluations/worker/:workerId",
     name: "WorkerDashboard",
     component: WorkerDashboardView,
     props: { default: true },
