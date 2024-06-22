@@ -42,8 +42,6 @@ const iconComponent = computed(() => {
       return SettingsIcon;
     case "logout":
       return LogoutIcon;
-    case "managment":
-      return GestionIcon;
     case "company":
       return CompanyIcon;
     case "dashboard":
