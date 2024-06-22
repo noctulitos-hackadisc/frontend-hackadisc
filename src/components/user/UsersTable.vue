@@ -161,8 +161,6 @@ const props = defineProps({
   columns: Array,
 });
 
-console.log("jeje", props.data);
-
 import {
   useVueTable,
   FlexRender,

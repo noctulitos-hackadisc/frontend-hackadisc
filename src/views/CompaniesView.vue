@@ -62,6 +62,7 @@ const columns = [
       h(TableVisualizationOptions, {
         id: row.original.id,
         subcompanies: visualizationCountSubcompanies(row.original),
+        hasWorkers: row.original.has_workers,
       }),
     enableSorting: false,
   },
@@ -90,6 +91,7 @@ const fetchCompanies = async () => {
 
   try {
     const res = await api.get("/profile");
+    console.log(res.data);
     data.value = res.data.user.profile.companies;
   } catch (e) {
     console.log(e);

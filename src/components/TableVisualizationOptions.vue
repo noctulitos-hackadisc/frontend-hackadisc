@@ -14,7 +14,14 @@
       Sub Empresas
     </button>
     <button
-      class="inline-flex space-x-4 p-2 border hover:bg-slate-100 rounded-md text-black"
+      :disabled="!hasWorkers"
+      @click="$router.push({ name: 'Workers', params: { id: props.id } })"
+      class="inline-flex space-x-4 p-2 border rounded-md text-black"
+      :class="{
+        'hover:bg-slate-100': props.hasWorkers && !disabled,
+        'bg-gray-300 cursor-not-allowed': !props.hasWorkers,
+        'opacity-50': !props.hasWorkers,
+      }"
     >
       <User class="size-5 mr-2" />
       Trabajadores
@@ -32,6 +39,10 @@ const props = defineProps({
   },
   subcompanies: {
     type: Number,
+    required: true,
+  },
+  hasWorkers: {
+    type: Boolean,
     required: true,
   },
 });
