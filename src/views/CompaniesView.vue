@@ -63,6 +63,7 @@ const columns = [
         id: row.original.id,
         subcompanies: visualizationCountSubcompanies(row.original),
         hasWorkers: row.original.has_workers,
+        showSubcompanies: true,
       }),
     enableSorting: false,
   },

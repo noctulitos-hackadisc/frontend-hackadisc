@@ -34,6 +34,7 @@ import { api } from "@/api";
 
 import CompanyTable from "@/components/company/CompanyTable.vue";
 import TableDropdown from "@/components/TableDropdown.vue";
+import TableVisualizationOptions from "@/components/TableVisualizationOptions.vue";
 
 const route = useRoute();
 
@@ -50,6 +51,18 @@ const columns = [
     header: "Nombre",
   },
   {
+    accessorKey: "visualization",
+    header: "Visualizar",
+    cell: ({ row }) =>
+      h(TableVisualizationOptions, {
+        id: row.original.id,
+        subcompanies: visualizationCountSubcompanies(row.original),
+        hasWorkers: row.original.has_workers,
+        showSubcompanies: false,
+      }),
+    enableSorting: false,
+  },
+  {
     accessorKey: "options",
     header: "Acciones",
     cell: ({ row }) => h(TableDropdown, { id: row.original.id }),
@@ -58,6 +71,12 @@ const columns = [
 ];
 
 const companyName = ref(null);
+
+const visualizationCountSubcompanies = (subcompanies) => {
+  if (subcompanies.subcompanies) {
+    return subcompanies.subcompanies.length;
+  } else return 0;
+};
 
 const fetchSubCompanies = async () => {
   loading.value = true;
