@@ -1,6 +1,6 @@
 <template>
   <div class="w-full overflow-x-auto">
-    <h1 v-if="companyName" class="text-4xl font-bold mt-16 mb-4 ml-10">
+    <h1 v-if="!loading" class="text-4xl font-bold mt-16 mb-4 ml-10">
       Empresas de
       <span class="text-primaryGreen">{{ companyName }}</span>
     </h1>
@@ -29,17 +29,13 @@
 <script setup>
 import { ref, onMounted, h } from "vue";
 import { Loader2 } from "lucide-vue-next";
-import CompanyTable from "@/components/company/CompanyTable.vue";
-import TableDropdown from "@/components/TableDropdown.vue";
 import { useRoute } from "vue-router";
-
-import { useAuth } from "@/stores/store";
-
 import { api } from "@/api";
 
-const route = useRoute();
+import CompanyTable from "@/components/company/CompanyTable.vue";
+import TableDropdown from "@/components/TableDropdown.vue";
 
-console.log(route.params.id);
+const route = useRoute();
 
 const data = ref(null);
 const loading = ref(false);

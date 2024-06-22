@@ -1,6 +1,6 @@
 <template>
   <div class="w-full overflow-x-auto">
-    <h1 class="text-4xl font-bold mt-16 mb-4 ml-10">
+    <h1 v-if="!loading" class="text-4xl font-bold mt-16 mb-4 ml-10">
       Empresas de
       <span class="text-primaryGreen">{{ useAuth().user.name }}</span>
     </h1>
@@ -13,7 +13,7 @@
       <- Volver
     </button>
 
-    <div v-if="loading" class="grid place-items-center h-[50dvh]">
+    <div v-if="loading" class="grid place-items-center h-[100dvh]">
       <div class="grid place-items-center">
         <Loader2 class="size-[128px] mr-2 animate-spin text-colorLime" />
         <span class="text-gray-600 mt-4">Cargando empresas...</span>
