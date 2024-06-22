@@ -16,20 +16,31 @@
           v-model="password"
         />
       </div>
-      <Button> Iniciar sesión </Button>
+      <LoginButton :disabled="loading" :loading="loading"></LoginButton>
     </div>
+
+    <span
+      v-if="error"
+      class="flex items-center p-4 mb-4 text-sm text-red-700 border border-red-300 rounded-lg bg-red-50 font-semibold"
+      >{{ error }}</span
+    >
   </form>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import { useAuth } from "@/stores/store";
 
+import LoginButton from "@/components/LoginButton.vue";
+
+import { api } from "@/api";
+
 const auth = useAuth();
+
+const error = ref("");
+const loading = ref(false);
 
 const email = ref("");
 const password = ref("");
@@ -37,12 +48,31 @@ const password = ref("");
 const onSubmit = async (event) => {
   event.preventDefault();
 
+  error.value = "";
+
+  if (!email.value || !password.value) {
+    error.value = "* Correo electrónico y contraseña son requeridos";
+    return;
+  }
+
   const userToLogin = {
     email: email.value,
     password: password.value,
   };
 
-  auth.storeUser(userToLogin);
+  loading.value = true;
+
+  try {
+    const res = await api.post("/auth/login", userToLogin);
+
+    console.log("res", res.data);
+
+    auth.storeUser(res.data);
+  } catch (e) {
+    error.value = "* Credenciales incorrectas";
+  }
+
+  loading.value = false;
 };
 </script>
 
