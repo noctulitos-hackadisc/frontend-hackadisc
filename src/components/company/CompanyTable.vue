@@ -1,15 +1,34 @@
 <template>
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="mt-8 flow-root">
-      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <div class="my-4">
+          <div class="grid grid-cols-2 my-4 mb-8">
             <input
               type="text"
-              class="border border-gray-400 rounded px-2 py-2"
+              class="border border-gray-400 rounded px-2 py-2 w-[80px] md:w-[250px]"
               placeholder="Buscar por..."
               v-model="filter"
             />
+
+            <div class="grid place-items-end">
+              <div class="inline-flex space-x-4">
+                <button
+                  class="rounded px-2 py-2 disabled:opacity-50 disabled:cursor-not-allowed text-white bg-primaryBlue hover:bg-blue-500 transition-all duration-500 ease-in-out"
+                  :disabled="!table.getCanPreviousPage()"
+                  @click="table.previousPage()"
+                >
+                  <- Página
+                </button>
+                <button
+                  class="rounded px-2 py-2 disabled:opacity-50 disabled:cursor-not-allowed text-white bg-primaryBlue hover:bg-blue-500 transition-all duration-500 ease-in-out"
+                  :disabled="!table.getCanNextPage()"
+                  @click="table.nextPage()"
+                >
+                  Página ->
+                </button>
+              </div>
+            </div>
           </div>
 
           <table class="min-w-full divide-y divide-gray-300">
@@ -26,7 +45,8 @@
                   :class="{
                     'cursor-pointer select-none': header.column.getCanSort(),
                     'text-center':
-                      header.column.columnDef.accessorKey == 'subcompanies',
+                      header.column.columnDef.accessorKey == 'subcompanies' ||
+                      header.column.columnDef.accessorKey == 'options',
                   }"
                   @click="header.column.getToggleSortingHandler()?.($event)"
                 >
@@ -52,7 +72,8 @@
                   :class="{
                     'font-semibold': cell.column.columnDef.accessorKey == 'id',
                     'text-center':
-                      cell.column.columnDef.accessorKey == 'subcompanies',
+                      cell.column.columnDef.accessorKey == 'subcompanies' ||
+                      cell.column.columnDef.accessorKey == 'options',
                   }"
                 >
                   <FlexRender

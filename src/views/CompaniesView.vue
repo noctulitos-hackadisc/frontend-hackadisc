@@ -19,9 +19,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, h } from "vue";
 import { Loader2 } from "lucide-vue-next";
 import CompanyTable from "@/components/company/CompanyTable.vue";
+import TableDropdown from "@/components/TableDropdown.vue";
 
 import { useAuth } from "@/stores/store";
 
@@ -43,6 +44,12 @@ const columns = [
     accessorKey: "subcompanies",
     header: "Total de Sub Empresas",
     cell: (info) => countSubcompanies(info),
+  },
+  {
+    accessorKey: "options",
+    header: "Acciones",
+    cell: ({ row }) => h(TableDropdown, { id: row.original.id }),
+    enableSorting: false,
   },
 ];
 
