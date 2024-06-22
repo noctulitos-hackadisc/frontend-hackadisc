@@ -57,9 +57,10 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/add-intervention/user/id",
+    path: "/add-intervention/worker/:id",
     name: "AddIntervention",
     component: AddInterventionView,
+    props: { default: true },
     meta: { requiresAuth: true },
   },
   {

@@ -4,6 +4,14 @@
       Intervenciones
     </h1>
 
+    <button
+      v-if="!loading"
+      @click="$router.go(-1)"
+      class="ml-10 mb-4 rounded px-2 disabled:opacity-50 disabled:cursor-not-allowed text-white bg-primaryBlue hover:bg-blue-500 transition-all duration-500 ease-in-out"
+    >
+      <- Volver
+    </button>
+
     <div v-if="loading" class="grid place-items-center h-[100dvh]">
       <div class="grid place-items-center">
         <Loader2 class="size-[128px] mr-2 animate-spin text-colorLime" />
