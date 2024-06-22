@@ -43,7 +43,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/companies/:workerId",
+    path: "/dashboard/company/:companyId",
     name: "CompanyDashboard",
     component: CompanyDashBoardView,
     props: { default: true },

@@ -32,7 +32,7 @@ import { Loader2 } from "lucide-vue-next";
 import CompanyTable from "@/components/company/CompanyTable.vue";
 
 import TableVisualizationOptions from "@/components/TableVisualizationOptions.vue";
-import TableDropdown from "@/components/TableDropdown.vue";
+import TableDropdown from "@/components/company/TableDropdown.vue";
 
 import { useAuth } from "@/stores/store";
 
@@ -70,7 +70,7 @@ const columns = [
   {
     accessorKey: "options",
     header: "Acciones",
-    cell: ({ row }) => h(TableDropdown, { id: row.original.id }),
+    cell: ({ row }) => h(TableDropdown, { companyId: row.original.id }),
     enableSorting: false,
   },
 ];
