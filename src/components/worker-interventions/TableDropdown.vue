@@ -22,7 +22,10 @@
     </DropdownMenu>
   </div>
 
-  <CloseInterventionModal ref="closeIntervention" />
+  <CloseInterventionModal
+    ref="closeIntervention"
+    :interventionId="interventionId"
+  />
 </template>
 
 <script setup>
@@ -64,7 +67,7 @@ const props = defineProps({
     required: true,
   },
   canClose: {
-    type: Boolean,
+    type: Number,
     required: true,
   },
 });

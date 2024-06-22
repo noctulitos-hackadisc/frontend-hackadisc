@@ -30,16 +30,22 @@
     </CardContent>
     <CardFooter v-if="props.showButton">
       <Button
-        @click="assignIntervention()"
+        @click="openAssignModal"
         class="w-full bg-primaryGreen hover:bg-colorLime"
       >
         <Check class="mr-2 h-4 w-4" /> Asignar intervención
       </Button>
     </CardFooter>
   </Card>
+  <AssignInterventionModal
+    ref="assignInterventionModal"
+    :intervened_competencies="props.data.intervened_competencies"
+    :intervention_type_id="props.data.id"
+  />
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { Timer } from "lucide-vue-next";
 import { Check } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
@@ -51,11 +57,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useRoute } from "vue-router";
 
-import { api } from "@/api";
+import AssignInterventionModal from "@/components/worker-interventions/AssignInterventionModal.vue";
 
-const route = useRoute();
+const assignInterventionModal = ref(null);
 
 const props = defineProps({
   data: {
@@ -91,17 +96,7 @@ const translateCompetency = (competency) => {
   }
 };
 
-const assignIntervention = async () => {
-  console.log("Intervention assigned", props.data);
-  try {
-    const res = await api.post(`/open-intervention/${route.params.id}`, {
-      intervened_competency: props.data.intervened_competencies,
-      intervention_type_id: props.data.id,
-      evaluation_id: route.params.evaluationId,
-    });
-    console.log(res.data);
-  } catch (e) {
-    console.log(e);
-  }
+const openAssignModal = () => {
+  assignInterventionModal.value.openDialog();
 };
 </script>

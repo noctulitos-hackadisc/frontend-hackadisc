@@ -3,20 +3,22 @@
     <DialogContent>
       <DialogHeader>
         <DialogTitle class="p-3 text-2xl"
-          >¿Estás seguro que deseas finalizar la intervención?</DialogTitle
+          >¿Estás seguro que deseas asignar la intervención?</DialogTitle
         >
         <DialogDescription>
           <div v-if="loading" class="grid place-items-center">
             <Loader2 class="size-[128px] mr-2 animate-spin text-colorLime" />
-            <span class="text-gray-600 mt-4">Cerrando intervención...</span>
+            <span class="text-gray-600 mt-4">Asignando intervención...</span>
           </div>
         </DialogDescription>
       </DialogHeader>
       <DialogFooter>
-        <DialogClose @click="closeIntervention()">
+        <DialogClose>
           <div class="inline-flex space-x-4">
-            <Button :disabled="loading" class="bg-red-500 hover:bg-red-600"
-              >Terminar intervención</Button
+            <Button
+              @click="assignIntervention()"
+              class="bg-primaryGreen hover:bg-colorLime"
+              >Asignar intervención</Button
             >
           </div>
         </DialogClose>
@@ -39,46 +41,51 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useRoute } from "vue-router";
+import router from "@/router/router";
 
+const isOpen = ref(false);
+
+const route = useRoute();
 const loading = ref(false);
 
 const props = defineProps({
-  interventionId: {
+  intervened_competencies: {
+    type: String,
+    required: true,
+  },
+  intervention_type_id: {
     type: Number,
     required: true,
   },
 });
 
-const isOpen = ref(false);
+console.log(route.params);
 
-const fetchIntervention = async () => {
-  try {
-    const response = await api.get("/intervention");
-    console.log(response);
-  } catch (error) {
-    console.error(error);
-  }
-};
+const assignIntervention = async () => {
+  console.log("Intervention assigned", props.data);
 
-const closeIntervention = async () => {
   loading.value = true;
 
   try {
-    const response = await api.post(
-      `/close-intervention/${props.interventionId}`
-    );
-    data.value = response.data;
-    console.log("response close", response);
-  } catch (error) {
-    console.error(error);
+    const res = await api.post(`/open-intervention/${route.params.id}`, {
+      intervened_competency: props.intervened_competencies,
+      intervention_type_id: props.intervention_type_id,
+      evaluation_id: route.params.evaluationId,
+    });
+  } catch (e) {
+    console.log(e);
   }
 
   loading.value = false;
-  window.location.reload();
+  //   router.go(-1);
+  router.push({
+    name: "WorkerInterventions",
+    params: { workerId: route.params.id },
+  });
 };
 
 const openDialog = () => {
-  fetchIntervention();
   isOpen.value = true;
 };
 
