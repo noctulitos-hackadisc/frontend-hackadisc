@@ -1,11 +1,11 @@
 <template>
   <div>
-    <canvas ref="radarCanvas"></canvas>
+    <canvas ref="radarCanvas" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { Chart, registerables } from "chart.js";
 
 const props = defineProps({
