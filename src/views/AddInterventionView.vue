@@ -2,7 +2,7 @@
   <div class="w-full overflow-x-auto">
     <h1 v-if="!loading" class="text-4xl font-bold mt-16 mb-4 ml-10">
       Intervención a
-      <span class="text-primaryGreen">usuario</span>
+      <span class="text-primaryGreen">{{ workerName }}</span>
     </h1>
 
     <button
@@ -81,8 +81,12 @@ import { Loader2 } from "lucide-vue-next";
 import { api } from "@/api";
 import FilterIcon from "@/components/icons/FilterIcon.vue";
 import InterventionCard from "@/components/InterventionCard.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const loading = ref(false);
+const workerName = ref(null);
 const interventions = ref([]);
 
 const clearFilters = () => {
@@ -95,11 +99,22 @@ const fetchInterventions = async () => {
   try {
     const response = await api.get("/interventions-types");
     interventions.value = response.data;
+
+    console.log("resss", interventions.value);
   } catch (error) {
     console.error(error);
   }
 
   loading.value = false;
+};
+
+const getWorkerName = async () => {
+  try {
+    const res = await api.get(`/workers/${route.params.id}`);
+    workerName.value = res.data.name;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const reverseTranslateCompetency = (competency) => {
@@ -169,6 +184,7 @@ const filteredInterventions = computed(() => {
 });
 
 onMounted(() => {
+  getWorkerName();
   fetchInterventions();
 });
 </script>

@@ -33,7 +33,7 @@ import { useRoute } from "vue-router";
 import { api } from "@/api";
 
 import EvaluationTable from "@/components/evaluation/EvaluationTable.vue";
-import TableDropdown from "@/components/user/TableDropdown.vue";
+import TableDropdown from "@/components/evaluation/TableDropdown.vue";
 
 const route = useRoute();
 
@@ -83,7 +83,11 @@ const columns = [
   {
     accessorKey: "options",
     header: "Acciones",
-    cell: ({ row }) => h(TableDropdown, { id: row.original.id }),
+    cell: ({ row }) =>
+      h(TableDropdown, {
+        workerId: parseInt(route.params.workerId),
+        evaluationId: row.original.id,
+      }),
     enableSorting: false,
   },
 ];
@@ -114,9 +118,7 @@ function formatDate(dateString) {
   return `${day} ${monthName} ${year}`;
 }
 
-// Example usage:
-const formattedDate = formatDate("16/06/2024");
-console.log(formattedDate); // Output: "16 June 2024"
+console.log("params", route.params);
 
 const workerName = ref(null);
 
@@ -124,11 +126,10 @@ const fetchEvaluations = async () => {
   loading.value = true;
 
   try {
-    const res = await api.get(`/evaluations/worker/${route.params.id}`);
+    const res = await api.get(`/evaluations/worker/${route.params.workerId}`);
 
     data.value = res.data;
     workerName.value = res.data[0].worker_name;
-    console.log(res.data);
   } catch (e) {
     console.log(e);
   }
@@ -137,6 +138,8 @@ const fetchEvaluations = async () => {
 
   return data;
 };
+
+console.log(route.params);
 
 onMounted(() => {
   fetchEvaluations();

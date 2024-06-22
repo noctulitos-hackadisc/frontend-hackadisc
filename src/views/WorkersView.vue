@@ -72,7 +72,7 @@ const columns = [
     header: "Acciones",
     cell: ({ row }) =>
       h(TableDropdown, {
-        companyId: row.original.id,
+        companyId: row.original.company_id,
         workerId: row.original.id,
       }),
   },
