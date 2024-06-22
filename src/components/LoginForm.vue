@@ -65,8 +65,6 @@ const onSubmit = async (event) => {
   try {
     const res = await api.post("/auth/login", userToLogin);
 
-    console.log("res", res.data);
-
     auth.storeUser(res.data);
   } catch (e) {
     error.value = "* Credenciales incorrectas";

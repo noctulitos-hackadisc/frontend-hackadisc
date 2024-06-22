@@ -6,7 +6,7 @@ import HomeView from "@/views/HomeView.vue";
 import WorkerDashboardView from "@/views/WorkerDashboardView.vue";
 import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
-import StatisticsView from "@/views/StatisticsView.vue";
+import WorkerStatisticsView from "@/views/WorkerStatisticsView.vue";
 import CompaniesView from "@/views/CompaniesView.vue";
 import SubCompanyView from "@/views/SubCompanyView.vue";
 import WorkersView from "@/views/WorkersView.vue";
@@ -14,15 +14,16 @@ import EvaluationsView from "@/views/EvaluationsView.vue";
 import ChatBox from "@/components/chat/ChatBox.vue";
 import CompanyDashBoardView from "@/views/CompanyDashboardView.vue";
 
-const routes = [
+import WorkerInterventionsView from "@/views/WorkerInterventionsView.vue";
 
+const routes = [
   {
     path: "/",
     name: "Login",
     component: LoginView,
     meta: { requiresAuth: false },
   },
-  { 
+  {
     path: "/bot",
     name: "Bot",
     component: ChatBox,
@@ -35,7 +36,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/evaluations/worker/:workerId",
+    path: "/dashboard/worker/:workerId",
     name: "WorkerDashboard",
     component: WorkerDashboardView,
     props: { default: true },
@@ -76,6 +77,13 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/workers/:workerId/interventions",
+    name: "WorkerInterventions",
+    component: WorkerInterventionsView,
+    props: { default: true },
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/interventions",
     name: "Interventions",
     component: InterventionsView,
@@ -89,9 +97,10 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/statistics",
-    name: "Statistics",
-    component: StatisticsView,
+    path: "/statistics/worker/:workerId",
+    name: "WorkerStatistics",
+    component: WorkerStatisticsView,
+    props: { default: true },
     meta: { requiresAuth: true },
   },
 ];

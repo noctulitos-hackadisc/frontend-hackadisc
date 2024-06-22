@@ -1,10 +1,14 @@
 <template>
   <Carousel class="relative w-full">
     <CarouselContent>
-      <CarouselItem v-for="(item, index) in getLimitedData(props.data)" :key="index">
+      <CarouselItem
+        v-for="(item, index) in getLimitedData(props.data)"
+        :key="index"
+      >
         <Card>
           <CardContent>
             <CompetencyChart
+              class="h-[350px]"
               :title="titles[index]"
               :data="get_data(competencies[index])"
               :time-line="get_month_labels(get_time_line(competencies[index]))"
@@ -51,12 +55,9 @@ const titles = [
   "Trabajo bajo Presión",
 ];
 
-
 const getLimitedData = (data) => {
-  return data.slice(0, 6); // Limitar a un máximo de 6 elementos
+  return data.slice(0, 6);
 };
-
-
 
 const get_data = (competency) => {
   const filtered = [];
@@ -78,11 +79,20 @@ const get_time_line = (competency) => {
   return time_line;
 };
 
-
 const get_month_labels = (dates) => {
   const months = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
   ];
 
   const labels = [];
@@ -121,12 +131,10 @@ const get_month_labels = (dates) => {
   // Bloquear el carrusel después de la última etiqueta
   if (labels.length > 6) {
     for (let i = 6; i < labels.length; i++) {
-      labels[i] = '';
+      labels[i] = "";
     }
   }
 
   return labels;
 };
-
-
 </script>
