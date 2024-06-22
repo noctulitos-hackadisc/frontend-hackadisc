@@ -245,8 +245,8 @@ const radarChartData = ref({
     {
       label: "Promedios",
       data: competencias.map((competencia) => calculateAverage(competencia)),
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
+      backgroundColor: "rgba(126, 202, 39, 0.3)",
+      borderColor: "#0A2E59",
       borderWidth: 1,
     },
   ],
