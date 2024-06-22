@@ -93,6 +93,7 @@ const fetchProfile = async () => {
   try {
     const response = await api.get("/profile");
     data.value = response.data;
+    console.log(response);
   } catch (error) {
     console.error(error);
   }

@@ -7,7 +7,7 @@ import DashboardView from "@/views/DashboardView.vue";
 import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
 import StatisticsView from "@/views/StatisticsView.vue";
-import CompanyView from "@/views/CompanyView.vue";
+import CompaniesView from "@/views/CompaniesView.vue";
 
 const routes = [
   {
@@ -31,7 +31,7 @@ const routes = [
   {
     path: "/company",
     name: "Company",
-    component: CompanyView,
+    component: CompaniesView,
     meta: { requiresAuth: true },
   },
   {
