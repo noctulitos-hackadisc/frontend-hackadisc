@@ -46,7 +46,8 @@
                     'cursor-pointer select-none': header.column.getCanSort(),
                     'text-center':
                       header.column.columnDef.accessorKey == 'subcompanies' ||
-                      header.column.columnDef.accessorKey == 'options',
+                      header.column.columnDef.accessorKey == 'options' ||
+                      header.column.columnDef.accessorKey == 'visualization',
                   }"
                   @click="header.column.getToggleSortingHandler()?.($event)"
                 >
@@ -63,7 +64,7 @@
               <tr
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
-                class="hover:bg-gray-100 transition-all duration-500 ease-in-out hover:cursor-pointer"
+                class="hover:bg-gray-100 transition-all duration-500 ease-in-out"
               >
                 <td
                   v-for="cell in row.getVisibleCells()"
@@ -73,7 +74,8 @@
                     'font-semibold': cell.column.columnDef.accessorKey == 'id',
                     'text-center':
                       cell.column.columnDef.accessorKey == 'subcompanies' ||
-                      cell.column.columnDef.accessorKey == 'options',
+                      cell.column.columnDef.accessorKey == 'options' ||
+                      cell.column.columnDef.accessorKey == 'visualization',
                   }"
                 >
                   <FlexRender

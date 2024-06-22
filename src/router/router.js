@@ -8,6 +8,7 @@ import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
 import StatisticsView from "@/views/StatisticsView.vue";
 import CompaniesView from "@/views/CompaniesView.vue";
+import SubCompanyView from "@/views/SubCompanyView.vue";
 
 const routes = [
   {
@@ -32,6 +33,13 @@ const routes = [
     path: "/company",
     name: "Company",
     component: CompaniesView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/company/subcompany/:id",
+    name: "SubCompany",
+    component: SubCompanyView,
+    props: { default: true },
     meta: { requiresAuth: true },
   },
   {

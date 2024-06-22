@@ -1,8 +1,8 @@
 <template>
   <div class="w-full overflow-x-auto">
-    <h1 class="text-4xl font-bold mt-16 mb-4 ml-10">
+    <h1 v-if="companyName" class="text-4xl font-bold mt-16 mb-4 ml-10">
       Empresas de
-      <span class="text-primaryGreen">{{ useAuth().user.name }}</span>
+      <span class="text-primaryGreen">{{ companyName }}</span>
     </h1>
 
     <button
@@ -13,7 +13,7 @@
       <- Volver
     </button>
 
-    <div v-if="loading" class="grid place-items-center h-[50dvh]">
+    <div v-if="loading" class="grid place-items-center h-[100dvh]">
       <div class="grid place-items-center">
         <Loader2 class="size-[128px] mr-2 animate-spin text-colorLime" />
         <span class="text-gray-600 mt-4">Cargando empresas...</span>
@@ -30,13 +30,16 @@
 import { ref, onMounted, h } from "vue";
 import { Loader2 } from "lucide-vue-next";
 import CompanyTable from "@/components/company/CompanyTable.vue";
-
-import TableVisualizationOptions from "@/components/TableVisualizationOptions.vue";
 import TableDropdown from "@/components/TableDropdown.vue";
+import { useRoute } from "vue-router";
 
 import { useAuth } from "@/stores/store";
 
 import { api } from "@/api";
+
+const route = useRoute();
+
+console.log(route.params.id);
 
 const data = ref(null);
 const loading = ref(false);
@@ -51,21 +54,6 @@ const columns = [
     header: "Nombre",
   },
   {
-    accessorKey: "subcompanies",
-    header: "Total de Sub Empresas",
-    cell: (info) => countSubcompanies(info),
-  },
-  {
-    accessorKey: "visualization",
-    header: "Visualizar",
-    cell: ({ row }) =>
-      h(TableVisualizationOptions, {
-        id: row.original.id,
-        subcompanies: visualizationCountSubcompanies(row.original),
-      }),
-    enableSorting: false,
-  },
-  {
     accessorKey: "options",
     header: "Acciones",
     cell: ({ row }) => h(TableDropdown, { id: row.original.id }),
@@ -73,24 +61,22 @@ const columns = [
   },
 ];
 
-const visualizationCountSubcompanies = (subcompanies) => {
-  if (subcompanies.subcompanies) {
-    return subcompanies.subcompanies.length;
-  } else return 0;
-};
+const companyName = ref(null);
 
-const countSubcompanies = (subcompanies) => {
-  if (subcompanies.getValue()) {
-    return subcompanies.getValue().length;
-  } else return 0;
-};
-
-const fetchCompanies = async () => {
+const fetchSubCompanies = async () => {
   loading.value = true;
 
   try {
     const res = await api.get("/profile");
-    data.value = res.data.user.profile.companies;
+
+    const companies = res.data.user.profile.companies;
+
+    companies.forEach((company) => {
+      if (company.id == route.params.id) {
+        data.value = company.subcompanies;
+        companyName.value = company.name;
+      }
+    });
   } catch (e) {
     console.log(e);
   }
@@ -101,6 +87,6 @@ const fetchCompanies = async () => {
 };
 
 onMounted(() => {
-  fetchCompanies();
+  fetchSubCompanies();
 });
 </script>

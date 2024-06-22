@@ -19,7 +19,7 @@
         text="Ver empresas"
         @click="$router.push({ name: 'Company' })"
       />
-      <DropdownSidebarItem icon="dashboard" text="Dashboard KPI" />
+      <!-- <DropdownSidebarItem icon="dashboard" text="Dashboard KPI" /> -->
       <SidebarItem
         icon="interventions"
         text="Ver capacitaciones"
