@@ -11,6 +11,7 @@
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem
+            :disabled="canAssignIntervention"
             @click="
               $router.push({
                 name: 'AddIntervention',
@@ -32,6 +33,7 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { Pencil, Rocket } from "lucide-vue-next";
 
 import { Button } from "@/components/ui/button";
@@ -49,6 +51,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+const canAssignIntervention = ref(false);
 
 const props = defineProps({
   evaluationId: {

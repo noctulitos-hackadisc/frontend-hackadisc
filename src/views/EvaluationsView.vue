@@ -31,6 +31,9 @@ import { ref, onMounted, h } from "vue";
 import { Loader2 } from "lucide-vue-next";
 import { useRoute } from "vue-router";
 import { api } from "@/api";
+import { useAuth } from "@/stores/store";
+
+import { jwtDecode } from "jwt-decode";
 
 import EvaluationTable from "@/components/evaluation/EvaluationTable.vue";
 import TableDropdown from "@/components/evaluation/TableDropdown.vue";
@@ -39,6 +42,33 @@ const route = useRoute();
 
 const data = ref(null);
 const loading = ref(false);
+
+const auth = useAuth();
+
+const showAssignIntervention = () => {
+  const decodedToken = jwtDecode(auth.token);
+
+  const option = {
+    accessorKey: "options",
+    header: "Acciones",
+    cell: ({ row }) =>
+      h(TableDropdown, {
+        workerId: parseInt(route.params.workerId),
+        evaluationId: row.original.id,
+      }),
+    enableSorting: false,
+  };
+
+  if (decodedToken.role === "Jefe de area") {
+    return option;
+  } else
+    return {
+      accessorKey: "id",
+      header: "",
+      enableSorting: false,
+      cell: ({ row }) => "",
+    };
+};
 
 const columns = [
   {
@@ -80,16 +110,7 @@ const columns = [
     header: "Trabajo bajo presión",
     cell: ({ row }) => row.original.working_under_pressure * 100 + "%",
   },
-  {
-    accessorKey: "options",
-    header: "Acciones",
-    cell: ({ row }) =>
-      h(TableDropdown, {
-        workerId: parseInt(route.params.workerId),
-        evaluationId: row.original.id,
-      }),
-    enableSorting: false,
-  },
+  showAssignIntervention(),
 ];
 
 function formatDate(dateString) {

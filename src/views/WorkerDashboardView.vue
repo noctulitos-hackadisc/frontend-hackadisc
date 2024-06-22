@@ -1,74 +1,93 @@
 <template>
   <div class="w-full overflow-x-auto">
-    <h1 class="text-4xl font-bold my-16 ml-10">Dashboard de Métricas</h1>
+    <h1 v-if="!loading" class="text-4xl font-bold mt-16 mb-4 ml-10">
+      Dashboard de Métricas
+    </h1>
 
-    <div class="container mx-auto mb-12">
-      <!-- Cards para Métricas KPI -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-        <CardKpi
-          title="Evaluaciones Totales"
-          :value="totalEvaluations"
-          shadowClass="shadow-2xl bg-blue-200"
-        />
-        <CardKpi
-          title="Evaluaciones este mes"
-          :value="evaluationsThisMonth"
-          shadowClass="shadow-2xl"
-        />
-        <CardKpi
-          title="Porcentaje de mejora"
-          :value="improvementPercentage.toFixed(2) + '%'"
-          shadowClass="shadow-2xl"
-        />
-        <CardKpi
-          title="Satisfacción del Empleado"
-          :value="employeeSatisfaction.toFixed(2) + '%'"
-          shadowClass="shadow-2xl"
-        />
-      </div>
+    <button
+      v-if="!loading"
+      @click="$router.go(-1)"
+      class="ml-10 mb-10 rounded px-2 disabled:opacity-50 disabled:cursor-not-allowed text-white bg-primaryBlue hover:bg-blue-500 transition-all duration-500 ease-in-out"
+    >
+      <- Volver
+    </button>
 
-      <!-- Métricas detalladas -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        <CardKpi2
-          title="Promedio de Adaptabilidad"
-          :value="averageAdaptability.toFixed(2)"
-          shadowClass="shadow-2xl"
-        />
-        <CardKpi2
-          title="Promedio de Conducta Segura"
-          :value="averageSafeConduct.toFixed(2)"
-          shadowClass="shadow-2xl"
-        />
-        <CardKpi2
-          title="Promedio de Dinamismo"
-          :value="averageDynamism.toFixed(2)"
-          shadowClass="shadow-2xl"
-        />
-        <CardKpi2
-          title="Promedio de Efectividad Personal"
-          :value="averagePersonalEffectiveness.toFixed(2)"
-          shadowClass="shadow-2xl"
-        />
-        <CardKpi2
-          title="Promedio de Iniciativa"
-          :value="averageInitiative.toFixed(2)"
-          shadowClass="shadow-2xl"
-        />
-        <CardKpi2
-          title="Promedio de Trabajo bajo Presión"
-          :value="averageWorkingUnderPressure.toFixed(2)"
-          shadowClass="shadow-2xl"
-        />
+    <div v-if="loading" class="grid place-items-center h-[100dvh]">
+      <div class="grid place-items-center">
+        <Loader2 class="size-[128px] mr-2 animate-spin text-colorLime" />
+        <span class="text-gray-600 mt-4">Cargando estadísticas...</span>
       </div>
     </div>
 
-    <div class="border-b mx-10"></div>
+    <div v-if="!loading">
+      <div class="container mx-auto mb-12">
+        <!-- Cards para Métricas KPI -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          <CardKpi
+            title="Evaluaciones Totales"
+            :value="totalEvaluations"
+            shadowClass="shadow-2xl bg-blue-200"
+          />
+          <CardKpi
+            title="Evaluaciones este mes"
+            :value="evaluationsThisMonth"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi
+            title="Porcentaje de mejora"
+            :value="improvementPercentage.toFixed(2) + '%'"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi
+            title="Satisfacción del Empleado"
+            :value="employeeSatisfaction.toFixed(2) + '%'"
+            shadowClass="shadow-2xl"
+          />
+        </div>
 
-    <h1 class="text-4xl font-bold my-16 ml-10">Promedios</h1>
-    <!-- Gráfico de Barras -->
-    <div class="flex justify-center mb-16">
-      <div class="w-full lg:w-2/3 py-5">
-        <BarChart :data="barChartData" :options="chartOptions" />
+        <!-- Métricas detalladas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          <CardKpi2
+            title="Promedio de Adaptabilidad"
+            :value="averageAdaptability.toFixed(2)"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi2
+            title="Promedio de Conducta Segura"
+            :value="averageSafeConduct.toFixed(2)"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi2
+            title="Promedio de Dinamismo"
+            :value="averageDynamism.toFixed(2)"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi2
+            title="Promedio de Efectividad Personal"
+            :value="averagePersonalEffectiveness.toFixed(2)"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi2
+            title="Promedio de Iniciativa"
+            :value="averageInitiative.toFixed(2)"
+            shadowClass="shadow-2xl"
+          />
+          <CardKpi2
+            title="Promedio de Trabajo bajo Presión"
+            :value="averageWorkingUnderPressure.toFixed(2)"
+            shadowClass="shadow-2xl"
+          />
+        </div>
+      </div>
+
+      <div class="border-b mx-10"></div>
+
+      <h1 class="text-4xl font-bold my-16 ml-10">Promedios</h1>
+      <!-- Gráfico de Barras -->
+      <div class="flex justify-center mb-16">
+        <div class="w-full lg:w-2/3 py-5">
+          <BarChart :data="barChartData" :options="chartOptions" />
+        </div>
       </div>
     </div>
   </div>
@@ -81,20 +100,30 @@ import { useRoute } from "vue-router";
 import CardKpi from "@/components/CardKpi.vue";
 import CardKpi2 from "@/components/CardKpi2.vue";
 import BarChart from "@/components/BarChart.vue";
+import { Loader2 } from "lucide-vue-next";
 
 const route = useRoute();
+
+const loading = ref(true);
 
 const dataset = ref([]);
 
 const fetchWorkers = async () => {
+  loading.value = true;
+
   try {
-    const res = await api.get(`/evaluations/worker/${route.params.id}`);
+    const res = await api.get(`/evaluations/worker/${route.params.workerId}`);
     dataset.value = res.data;
+
+    console.log("resssss", res.data);
+
     calculateMetrics();
   } catch (e) {
     console.log(e);
   }
-}
+
+  loading.value = false;
+};
 
 const totalEvaluations = ref(0);
 const improvementPercentage = ref(0);
@@ -155,13 +184,12 @@ const chartOptions = ref({
     },
     delay: (context) => {
       let delay = 0;
-      if (context.type === 'data' && context.mode === 'default' && !delayed) {
+      if (context.type === "data" && context.mode === "default" && !delayed) {
         delay = context.dataIndex * 300 + context.datasetIndex * 100;
       }
       return delay;
-    }
+    },
   },
-
 });
 
 const calculateMetrics = () => {
@@ -172,29 +200,36 @@ const calculateMetrics = () => {
   averageAdaptability.value = calculateAverage("adaptability_to_change");
   averageSafeConduct.value = calculateAverage("safe_conduct");
   averageDynamism.value = calculateAverage("dynamism_energy");
-  averagePersonalEffectiveness.value = calculateAverage("personal_effectiveness");
+  averagePersonalEffectiveness.value = calculateAverage(
+    "personal_effectiveness"
+  );
   averageInitiative.value = calculateAverage("initiative");
-  averageWorkingUnderPressure.value = calculateAverage("working_under_pressure");
+  averageWorkingUnderPressure.value = calculateAverage(
+    "working_under_pressure"
+  );
 
   updateBarChartData();
 };
 
 const calculateImprovementPercentage = () => {
-  const highPerformers = dataset.value.filter(item => !isNaN(item.adaptability_to_change) && item.adaptability_to_change > 0.8);
+  const highPerformers = dataset.value.filter(
+    (item) =>
+      !isNaN(item.adaptability_to_change) && item.adaptability_to_change > 0.8
+  );
   const totalEvaluationsValue = totalEvaluations.value || 1; // Evita la división por cero
   return (highPerformers.length / totalEvaluationsValue) * 100;
 };
 
 const calculateEvaluationsThisMonth = () => {
   const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1; 
+  const currentMonth = currentDate.getMonth() + 1;
 
-  const evaluationsThisMonth = dataset.value.filter(item => {
-    const dateParts = item.date.split("/"); 
+  const evaluationsThisMonth = dataset.value.filter((item) => {
+    const dateParts = item.date.split("/");
     if (dateParts.length !== 3) {
       return false;
     }
-    const evaluationMonth = parseInt(dateParts[1]); 
+    const evaluationMonth = parseInt(dateParts[1]);
     return evaluationMonth === currentMonth;
   });
 
@@ -211,7 +246,7 @@ const calculateEmployeeSatisfaction = () => {
       cur.initiative,
       cur.working_under_pressure,
     ];
-    metrics.forEach(metric => {
+    metrics.forEach((metric) => {
       if (!isNaN(metric)) {
         acc += metric;
       }
@@ -249,5 +284,4 @@ const updateBarChartData = () => {
 onMounted(() => {
   fetchWorkers();
 });
-
 </script>
