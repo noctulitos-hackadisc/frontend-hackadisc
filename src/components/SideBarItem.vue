@@ -12,14 +12,14 @@
 
 <script setup>
 import { computed } from "vue";
+
 import HomeIcon from "./icons/HomeIcon.vue";
 import SettingsIcon from "./icons/SettingsIcon.vue";
 import LogoutIcon from "./icons/LogoutIcon.vue";
-import GestionIcon from "./icons/GestionIcon.vue";
 import CompanyIcon from "./icons/CompanyIcon.vue";
 import DashboardIcon from "./icons/DashboardIcon.vue";
 import InterventionIcon from "./icons/InterventionIcon.vue";
-import PerfilIcon from "./icons/PerfilIcon.vue";
+import ProfileIcon from "./icons/ProfileIcon.vue";
 import MetricIcon from "./icons/MetricIcon.vue";
 import StatsIcon from "./icons/StatsIcon.vue";
 
@@ -49,11 +49,11 @@ const iconComponent = computed(() => {
     case "interventions":
       return InterventionIcon;
     case "profile":
-      return PerfilIcon;
-    case 'metrics':
+      return ProfileIcon;
+    case "metrics":
     case "metricas":
       return MetricIcon;
-    case 'statistics':
+    case "statistics":
       return StatsIcon;
     default:
       return null;
