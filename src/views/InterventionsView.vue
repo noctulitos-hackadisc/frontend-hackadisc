@@ -1,8 +1,17 @@
 <template>
   <div class="w-full overflow-x-auto">
-    <h1 class="text-4xl font-bold mt-16 mb-4 ml-10">Intervenciones</h1>
+    <h1 v-if="!loading" class="text-4xl font-bold mt-16 mb-4 ml-10">
+      Intervenciones
+    </h1>
 
-    <div class="grid place-items-center">
+    <div v-if="loading" class="grid place-items-center h-[100dvh]">
+      <div class="grid place-items-center">
+        <Loader2 class="size-[128px] mr-2 animate-spin text-colorLime" />
+        <span class="text-gray-600 mt-4">Cargando intervenciones...</span>
+      </div>
+    </div>
+
+    <div v-if="!loading" class="grid place-items-center">
       <div class="inline-flex space-x-4 mb-5">
         <span class="font-bold text-2xl mb-2">Filtros</span>
         <div
@@ -19,6 +28,7 @@
     </div>
 
     <div
+      v-if="!loading"
       class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-6 gap-y-5 place-items-center mb-10 mx-0 xl:mx-64 justify-between"
     >
       <Badge
@@ -49,6 +59,7 @@
         v-for="(el, index) in filteredInterventions"
         :data="el"
         :key="el.id"
+        :show-button="false"
       />
     </div>
   </div>
@@ -57,10 +68,12 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { Badge } from "@/components/ui/badge";
+import { Loader2 } from "lucide-vue-next";
 import { api } from "@/api";
 import FilterIcon from "@/components/icons/FilterIcon.vue";
 import InterventionCard from "@/components/InterventionCard.vue";
 
+const loading = ref(false);
 const interventions = ref([]);
 
 const clearFilters = () => {
@@ -68,12 +81,16 @@ const clearFilters = () => {
 };
 
 const fetchInterventions = async () => {
+  loading.value = true;
+
   try {
     const response = await api.get("/interventions-types");
     interventions.value = response.data;
   } catch (error) {
     console.error(error);
   }
+
+  loading.value = false;
 };
 
 const translateCompetency = (competency) => {

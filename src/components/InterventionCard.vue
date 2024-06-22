@@ -1,5 +1,7 @@
 <template>
-  <Card class="grid w-[250px] xl:w-[380px] max-h-[350px] min-h-[350px]">
+  <Card
+    class="grid w-[250px] xl:w-[380px] max-h-[350px] min-h-[350px] shadow-md"
+  >
     <CardHeader>
       <CardTitle>{{ data.name }}</CardTitle>
       <div class="inline-flex space-x-2 my-2">
@@ -26,7 +28,7 @@
         </div>
       </div>
     </CardContent>
-    <CardFooter>
+    <CardFooter v-if="props.showButton">
       <Button class="w-full bg-primaryGreen hover:bg-colorLime">
         <Check class="mr-2 h-4 w-4" /> Asignar intervención
       </Button>
@@ -51,6 +53,10 @@ const props = defineProps({
   data: {
     type: Object,
     required: true,
+  },
+  showButton: {
+    type: Boolean,
+    default: true,
   },
 });
 
