@@ -51,8 +51,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRoute } from "vue-router";
 
 import { api } from "@/api";
+
+const route = useRoute();
 
 const props = defineProps({
   data: {
@@ -90,14 +93,15 @@ const translateCompetency = (competency) => {
 
 const assignIntervention = async () => {
   console.log("Intervention assigned", props.data);
-  // try {
-  //   const res = await api.post(`/open-intervention/${route.params.id}`, {
-  //     intervened_competency: props.data,
-  //     intervention_type_id: props.data.id,
-  //     evaluation_id: props.data,
-  //   });
-  // } catch (e) {
-  //   console.log(e);
-  // }
+  try {
+    const res = await api.post(`/open-intervention/${route.params.id}`, {
+      intervened_competency: props.data.intervened_competencies,
+      intervention_type_id: props.data.id,
+      evaluation_id: route.params.evaluationId,
+    });
+    console.log(res.data);
+  } catch (e) {
+    console.log(e);
+  }
 };
 </script>

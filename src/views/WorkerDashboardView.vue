@@ -81,7 +81,6 @@ import { useRoute } from "vue-router";
 import CardKpi from "@/components/CardKpi.vue";
 import CardKpi2 from "@/components/CardKpi2.vue";
 import BarChart from "@/components/BarChart.vue";
-import { scales } from "chart.js";
 
 const route = useRoute();
 
