@@ -20,23 +20,29 @@ const getRandomColor = () => {
   return color;
 };
 
+let delayed;
 const options = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
-    x: {
-      ticks: {
-        display: true,
-        color: "#333",
-      },
+    r: {
+      beginAtZero: true,
+      max: 1,
     },
-    y: {
-      ticks: {
-        display: true,
-        color: "#333",
-      },
-    },
+    
   },
+  animation: {
+    onComplete: () => {
+      delayed = true;
+    },
+    delay: (context) => {
+      let delay = 0;
+      if (context.type === 'data' && context.mode === 'default' && !delayed) {
+        delay = context.dataIndex * 300 + context.datasetIndex * 100;
+      }
+      return delay;
+    }
+  }
 };
 
 const data = {

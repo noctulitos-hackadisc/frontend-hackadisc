@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted} from "vue";
 import { Chart, registerables } from "chart.js";
 
 const props = defineProps({
@@ -25,10 +25,3 @@ onMounted(() => {
   });
 });
 </script>
-
-<style scoped>
-canvas {
-  width: 100%;
-  height: 400px;
-}
-</style>
