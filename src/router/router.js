@@ -3,7 +3,7 @@ import { useAuth } from "@/stores/store";
 
 import LoginView from "@/views/LoginView.vue";
 import HomeView from "@/views/HomeView.vue";
-import DashboardView from "@/views/DashboardView.vue";
+import WorkerDashboardView from "@/views/WorkerDashboardView.vue";
 import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
 import StatisticsView from "@/views/StatisticsView.vue";
@@ -26,9 +26,10 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: DashboardView,
+    path: "/evaluations/worker/:id",
+    name: "WorkerDashboard",
+    component: WorkerDashboardView,
+    props: { default: true },
     meta: { requiresAuth: true },
   },
   {
