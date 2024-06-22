@@ -6,7 +6,7 @@ import HomeView from "@/views/HomeView.vue";
 import WorkerDashboardView from "@/views/WorkerDashboardView.vue";
 import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
-import StatisticsView from "@/views/StatisticsView.vue";
+import WorkerStatisticsView from "@/views/WorkerStatisticsView.vue";
 import CompaniesView from "@/views/CompaniesView.vue";
 import SubCompanyView from "@/views/SubCompanyView.vue";
 import WorkersView from "@/views/WorkersView.vue";
@@ -26,7 +26,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/evaluations/worker/:workerId",
+    path: "/dashboard/worker/:workerId",
     name: "WorkerDashboard",
     component: WorkerDashboardView,
     props: { default: true },
@@ -73,9 +73,10 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/statistics",
-    name: "Statistics",
-    component: StatisticsView,
+    path: "/statistics/worker/:workerId",
+    name: "WorkerStatistics",
+    component: WorkerStatisticsView,
+    props: { default: true },
     meta: { requiresAuth: true },
   },
 ];

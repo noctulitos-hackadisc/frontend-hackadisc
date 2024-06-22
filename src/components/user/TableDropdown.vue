@@ -23,11 +23,23 @@
             <span>Estadísticas</span>
           </DropdownMenuItem>
           <DropdownMenuItem
+            @click="
+              $router.push({
+                name: 'WorkerStatistics',
+                params: { workerId: props.workerId },
+              })
+            "
+            class="hover:cursor-pointer"
+          >
+            <LineChart class="mr-2 h-4 w-4" />
+            <span>Métricas</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
             class="hover:cursor-pointer"
             @click="
               $router.push({
                 name: 'Evaluations',
-                params: { id: props.companyId, workerId: props.workerId },
+                params: { workerId: props.workerId },
               })
             "
           >
@@ -41,7 +53,7 @@
 </template>
 
 <script setup>
-import { BarChart, Rocket } from "lucide-vue-next";
+import { BarChart, Rocket, LineChart } from "lucide-vue-next";
 
 import { Button } from "@/components/ui/button";
 import {
