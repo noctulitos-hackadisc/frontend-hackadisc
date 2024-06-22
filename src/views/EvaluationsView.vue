@@ -1,8 +1,8 @@
 <template>
   <div class="w-full overflow-x-auto">
     <h1 v-if="!loading" class="text-4xl font-bold mt-16 mb-4 ml-10">
-      Empresas de
-      <span class="text-primaryGreen">{{ useAuth().user.name }}</span>
+      Evaluaciones de
+      <!-- <span class="text-primaryGreen">{{ userName }}</span> -->
     </h1>
 
     <button
@@ -16,12 +16,12 @@
     <div v-if="loading" class="grid place-items-center h-[100dvh]">
       <div class="grid place-items-center">
         <Loader2 class="size-[128px] mr-2 animate-spin text-colorLime" />
-        <span class="text-gray-600 mt-4">Cargando empresas...</span>
+        <span class="text-gray-600 mt-4">Cargando evaluaciones...</span>
       </div>
     </div>
 
     <div v-if="!loading && data" class="mx-10 mb-16">
-      <CompanyTable :data="data" :columns="columns" class="shadow-xl" />
+      <!-- <CompanyTable :data="data" :columns="columns" class="shadow-xl" /> -->
     </div>
   </div>
 </template>
@@ -29,14 +29,13 @@
 <script setup>
 import { ref, onMounted, h } from "vue";
 import { Loader2 } from "lucide-vue-next";
-import CompanyTable from "@/components/company/CompanyTable.vue";
+import { useRoute } from "vue-router";
+import { api } from "@/api";
 
-import TableVisualizationOptions from "@/components/TableVisualizationOptions.vue";
+// import CompanyTable from "@/components/company/CompanyTable.vue";
 import TableDropdown from "@/components/TableDropdown.vue";
 
-import { useAuth } from "@/stores/store";
-
-import { api } from "@/api";
+const route = useRoute();
 
 const data = ref(null);
 const loading = ref(false);
@@ -51,22 +50,6 @@ const columns = [
     header: "Nombre",
   },
   {
-    accessorKey: "subcompanies",
-    header: "Total de Sub Empresas",
-    cell: (info) => countSubcompanies(info),
-  },
-  {
-    accessorKey: "visualization",
-    header: "Visualizar",
-    cell: ({ row }) =>
-      h(TableVisualizationOptions, {
-        id: row.original.id,
-        subcompanies: visualizationCountSubcompanies(row.original),
-        hasWorkers: row.original.has_workers,
-      }),
-    enableSorting: false,
-  },
-  {
     accessorKey: "options",
     header: "Acciones",
     cell: ({ row }) => h(TableDropdown, { id: row.original.id }),
@@ -74,25 +57,22 @@ const columns = [
   },
 ];
 
-const visualizationCountSubcompanies = (subcompanies) => {
-  if (subcompanies.subcompanies) {
-    return subcompanies.subcompanies.length;
-  } else return 0;
-};
+const companyName = ref(null);
 
-const countSubcompanies = (subcompanies) => {
-  if (subcompanies.getValue()) {
-    return subcompanies.getValue().length;
-  } else return 0;
-};
-
-const fetchCompanies = async () => {
+const fetchEvaluations = async () => {
   loading.value = true;
 
   try {
     const res = await api.get("/profile");
-    console.log(res.data);
-    data.value = res.data.user.profile.companies;
+
+    const companies = res.data.user.profile.companies;
+
+    companies.forEach((company) => {
+      if (company.id == route.params.id) {
+        data.value = company.subcompanies;
+        companyName.value = company.name;
+      }
+    });
   } catch (e) {
     console.log(e);
   }
@@ -103,6 +83,6 @@ const fetchCompanies = async () => {
 };
 
 onMounted(() => {
-  fetchCompanies();
+  fetchEvaluations();
 });
 </script>

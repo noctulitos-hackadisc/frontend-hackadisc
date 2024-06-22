@@ -1,5 +1,7 @@
 <template>
-  <Card class="grid w-[250px] xl:w-[380px] max-h-[350px] min-h-[350px]">
+  <Card
+    class="grid w-[250px] xl:w-[380px] max-h-[350px] min-h-[350px] shadow-md"
+  >
     <CardHeader>
       <CardTitle>{{ data.name }}</CardTitle>
       <div class="inline-flex space-x-2 my-2">
@@ -26,8 +28,11 @@
         </div>
       </div>
     </CardContent>
-    <CardFooter>
-      <Button class="w-full bg-primaryGreen hover:bg-colorLime">
+    <CardFooter v-if="props.showButton">
+      <Button
+        @click="assignIntervention()"
+        class="w-full bg-primaryGreen hover:bg-colorLime"
+      >
         <Check class="mr-2 h-4 w-4" /> Asignar intervención
       </Button>
     </CardFooter>
@@ -47,14 +52,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { api } from "@/api";
+
 const props = defineProps({
   data: {
     type: Object,
     required: true,
   },
+  showButton: {
+    type: Boolean,
+    default: true,
+  },
 });
-
-console.log("el", props.data);
 
 const stringToArray = (string) => {
   return string.split(",").map((item) => item.trim());
@@ -77,5 +86,18 @@ const translateCompetency = (competency) => {
     case "working_under_pressure":
       return "Trabajo bajo Presión";
   }
+};
+
+const assignIntervention = async () => {
+  console.log("Intervention assigned", props.data);
+  // try {
+  //   const res = await api.post(`/open-intervention/${route.params.id}`, {
+  //     intervened_competency: props.data,
+  //     intervention_type_id: props.data.id,
+  //     evaluation_id: props.data,
+  //   });
+  // } catch (e) {
+  //   console.log(e);
+  // }
 };
 </script>

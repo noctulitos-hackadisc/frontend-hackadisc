@@ -8,6 +8,9 @@ import InterventionsView from "@/views/InterventionsView.vue";
 import AddInterventionView from "@/views/AddInterventionView.vue";
 import StatisticsView from "@/views/StatisticsView.vue";
 import CompaniesView from "@/views/CompaniesView.vue";
+import SubCompanyView from "@/views/SubCompanyView.vue";
+import WorkersView from "@/views/WorkersView.vue";
+import EvaluationsView from "@/views/EvaluationsView.vue";
 
 const routes = [
   {
@@ -35,15 +38,37 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/company/subcompany/:id",
+    name: "SubCompany",
+    component: SubCompanyView,
+    props: { default: true },
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/company/:id/workers",
+    name: "Workers",
+    component: WorkersView,
+    props: { default: true },
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/company/:id/workers/:workerId/evaluations",
+    name: "Evaluations",
+    component: EvaluationsView,
+    props: { default: true },
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/interventions",
     name: "Interventions",
     component: InterventionsView,
     meta: { requiresAuth: true },
   },
   {
-    path: "/add-intervention/user/id",
+    path: "/add-intervention/worker/:id/evaluation/:evaluationId",
     name: "AddIntervention",
     component: AddInterventionView,
+    props: { default: true },
     meta: { requiresAuth: true },
   },
   {
