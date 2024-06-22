@@ -10,7 +10,15 @@
         <DropdownMenuLabel>Opciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem class="hover:cursor-pointer">
+          <DropdownMenuItem
+            @click="
+              $router.push({
+                name: 'WorkerDashboard',
+                params: { id: $route.params.workerId },
+              })
+            "
+            class="hover:cursor-pointer"
+          >
             <BarChart class="mr-2 h-4 w-4" />
             <span>Estadísticas</span>
           </DropdownMenuItem>
