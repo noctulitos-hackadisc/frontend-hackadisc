@@ -2,9 +2,20 @@
   <div class="w-full overflow-x-auto">
     <h1 class="text-4xl font-bold mt-16 mb-4 ml-10">Intervenciones</h1>
 
-    <div class="grid place-items-center mb-5">
-      <span class="font-bold text-2xl mb-2">Filtros</span>
-      <FilterIcon />
+    <div class="grid place-items-center">
+      <div class="inline-flex space-x-4 mb-5">
+        <span class="font-bold text-2xl mb-2">Filtros</span>
+        <div
+          @click="clearFilters()"
+          class="inline-flex hover:cursor-pointer hover:scale-110 transition-all duration-500 ease-in-out"
+        >
+          <FilterIcon />
+          <span
+            class="text-[12px] font-semibold grid place-items-center ml-2 mb-1.5"
+            >Eliminar filtros</span
+          >
+        </div>
+      </div>
     </div>
 
     <div
@@ -51,6 +62,10 @@ import FilterIcon from "@/components/icons/FilterIcon.vue";
 import InterventionCard from "@/components/InterventionCard.vue";
 
 const interventions = ref([]);
+
+const clearFilters = () => {
+  selectedCompetencies.value.clear();
+};
 
 const fetchInterventions = async () => {
   try {
