@@ -26,7 +26,11 @@
     </div>
 
     <div v-if="!loading && data" class="mx-10 mb-16">
-      <UsersTable :data="data" :columns="columns" class="shadow-xl" />
+      <WorkerInterventionTable
+        :data="data"
+        :columns="columns"
+        class="shadow-xl"
+      />
     </div>
   </div>
 
@@ -52,8 +56,8 @@ import { useRoute } from "vue-router";
 
 import { api } from "@/api";
 
-import UsersTable from "@/components/user/UsersTable.vue";
-import TableDropdown from "@/components/user/TableDropdown.vue";
+import WorkerInterventionTable from "@/components/worker-interventions/WorkerInterventionTable.vue";
+import TableDropdown from "@/components/worker-interventions/TableDropdown.vue";
 
 const route = useRoute();
 
@@ -89,6 +93,17 @@ const columns = [
     accessorKey: "active",
     header: "Estado",
     cell: ({ row }) => (row.original.active ? "Activa" : "Inactiva"),
+  },
+  {
+    accessorKey: "options",
+    header: "Acciones",
+    cell: ({ row }) =>
+      h(TableDropdown, {
+        interventionId: row.original.id,
+        workerId: parseInt(route.params.workerId),
+        canClose: row.original.active,
+      }),
+    enableSorting: false,
   },
 ];
 
