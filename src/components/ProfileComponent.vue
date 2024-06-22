@@ -41,7 +41,7 @@
               <!-- Totales -->
               <div class="grid border-t pt-4">
                 <p class="font-semibold">Total de Compañías:</p>
-                <span>{{ data.user.profile.companies.length }}</span>
+                <span>{{ data.user.profile.companies.length || 1 }}</span>
                 <p class="font-semibold">Total de Sub Compañías:</p>
                 <span>{{ getSubCompanies() }}</span>
               </div>
@@ -81,11 +81,13 @@ const isOpen = ref(false);
 
 const getSubCompanies = () => {
   let subCompanies = 0;
+
   data.value.user.profile.companies.forEach((company) => {
     if (company.subcompanies) {
       subCompanies += company.subcompanies.length;
     }
   });
+
   return subCompanies;
 };
 
@@ -93,7 +95,7 @@ const fetchProfile = async () => {
   try {
     const response = await api.get("/profile");
     data.value = response.data;
-    console.log(response);
+    console.log("response profile", response);
   } catch (error) {
     console.error(error);
   }
