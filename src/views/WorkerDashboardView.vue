@@ -89,6 +89,7 @@ const dataset = ref([]);
 const fetchWorkers = async () => {
   try {
     const res = await api.get(`/evaluations/worker/${route.params.id}`);
+    console.log(params.workerId)
     dataset.value = res.data;
     calculateMetrics();
   } catch (e) {

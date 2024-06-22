@@ -11,13 +11,21 @@ import CompaniesView from "@/views/CompaniesView.vue";
 import SubCompanyView from "@/views/SubCompanyView.vue";
 import WorkersView from "@/views/WorkersView.vue";
 import EvaluationsView from "@/views/EvaluationsView.vue";
+import ChatBox from "@/components/chat/ChatBox.vue";
 
 const routes = [
+
   {
     path: "/",
     name: "Login",
     component: LoginView,
     meta: { requiresAuth: false },
+  },
+  { 
+    path: "/bot",
+    name: "Bot",
+    component: ChatBox,
+    meta: { requiresAuth: true },
   },
   {
     path: "/home",
