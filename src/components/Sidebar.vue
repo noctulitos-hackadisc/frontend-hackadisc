@@ -32,7 +32,7 @@
       <SidebarItem
         icon="logout"
         text="Cerrar sesión"
-        @click="useAuth().destoreUser"
+        @click="logoutUser()"
         class="hover:bg-red-500"
       />
       <ProfileComponent ref="profileDialog" />
@@ -52,7 +52,7 @@
 <script setup>
 import { ref, defineAsyncComponent } from "vue";
 import { useAuth } from "@/stores/store";
-
+import { api } from "@/api";
 import SidebarItem from "@/components/SideBarItem.vue";
 import DropdownSidebarItem from "@/components/DropdownSidebarItem.vue";
 import RehaviourIcon from "@/components/icons/RehaviourIcon.vue";
@@ -66,4 +66,15 @@ const profileDialog = ref(null);
 const openProfile = () => {
   profileDialog.value?.openDialog();
 };
+
+const logoutUser = async () => {
+  try{
+    const logout = await api.post("/auth/logout");
+    useAuth().destoreUser();
+    console.log(logout)
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 </script>

@@ -12,6 +12,7 @@ import SubCompanyView from "@/views/SubCompanyView.vue";
 import WorkersView from "@/views/WorkersView.vue";
 import EvaluationsView from "@/views/EvaluationsView.vue";
 import ChatBox from "@/components/chat/ChatBox.vue";
+import CompanyDashBoardView from "@/views/CompanyDashboardView.vue";
 
 import WorkerInterventionsView from "@/views/WorkerInterventionsView.vue";
 
@@ -38,6 +39,13 @@ const routes = [
     path: "/dashboard/worker/:workerId",
     name: "WorkerDashboard",
     component: WorkerDashboardView,
+    props: { default: true },
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/companies/:workerId",
+    name: "CompanyDashboard",
+    component: CompanyDashBoardView,
     props: { default: true },
     meta: { requiresAuth: true },
   },
