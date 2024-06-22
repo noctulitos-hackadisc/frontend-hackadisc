@@ -87,7 +87,7 @@
         </div>
       </div>
 
-      <div class="mt-8">
+      <div class="mt-8 mb-4">
         Página
         <span class="font-bold">{{
           table.getState().pagination.pageIndex + 1
@@ -96,7 +96,7 @@
         {{ table.getFilteredRowModel().rows.length }} resultados
       </div>
 
-      <div class="mt-2 md:space-x-4 space-y-4">
+      <div class="mt-2 md:space-x-4 space-y-4" v-if="props.data.length > 15">
         <button
           class="rounded px-2 py-2 disabled:opacity-50 disabled:cursor-not-allowed text-white bg-primaryBlue hover:bg-blue-500 transition-all duration-500 ease-in-out"
           @click="table.setPageSize(5)"
@@ -117,7 +117,7 @@
         </button>
       </div>
 
-      <div class="md:space-x-4 mb-8 space-y-4">
+      <div class="md:space-x-4 mb-8 space-y-4" v-if="props.data.length > 15">
         <button
           class="rounded px-2 py-2 disabled:opacity-50 disabled:cursor-not-allowed text-white bg-primaryBlue hover:bg-blue-500 transition-all duration-500 ease-in-out"
           @click="table.setPageIndex(0)"
