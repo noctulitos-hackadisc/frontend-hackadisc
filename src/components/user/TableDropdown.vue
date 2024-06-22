@@ -46,6 +46,18 @@
             <Rocket class="mr-2 h-4 w-4" />
             <span>Ver evaluaciones</span>
           </DropdownMenuItem>
+          <DropdownMenuItem
+            class="hover:cursor-pointer"
+            @click="
+              $router.push({
+                name: 'WorkerInterventions',
+                params: { workerId: props.workerId },
+              })
+            "
+          >
+            <Brain class="mr-2 h-4 w-4" />
+            <span>Ver intervenciones</span>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -53,7 +65,7 @@
 </template>
 
 <script setup>
-import { BarChart, Rocket, LineChart } from "lucide-vue-next";
+import { BarChart, Rocket, LineChart, Brain } from "lucide-vue-next";
 
 import { Button } from "@/components/ui/button";
 import {

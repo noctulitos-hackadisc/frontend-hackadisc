@@ -31,6 +31,4 @@ import { Card, CardContent } from "@/components/ui/card";
 const props = defineProps({
   data: Array,
 });
-
-console.log(props.data);
 </script>

@@ -13,15 +13,16 @@ import WorkersView from "@/views/WorkersView.vue";
 import EvaluationsView from "@/views/EvaluationsView.vue";
 import ChatBox from "@/components/chat/ChatBox.vue";
 
-const routes = [
+import WorkerInterventionsView from "@/views/WorkerInterventionsView.vue";
 
+const routes = [
   {
     path: "/",
     name: "Login",
     component: LoginView,
     meta: { requiresAuth: false },
   },
-  { 
+  {
     path: "/bot",
     name: "Bot",
     component: ChatBox,
@@ -64,6 +65,13 @@ const routes = [
     path: "/company/:id/workers/:workerId/evaluations",
     name: "Evaluations",
     component: EvaluationsView,
+    props: { default: true },
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/workers/:workerId/interventions",
+    name: "WorkerInterventions",
+    component: WorkerInterventionsView,
     props: { default: true },
     meta: { requiresAuth: true },
   },
