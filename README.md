@@ -1,7 +1,31 @@
-# Vue 3 + Vite
+# Pignus software / Hackadisc 2024
+This is a project developed with Node.js, Vue 3, Vite, and Javascript.
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Prerequisites
+-Node.js
+-Git
 
-## Recommended IDE Setup
+## Project Setup
+1. Clone the repository
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+```cli
+https://github.com/noctulitos-hackadisc/frontend-hackadisc.git
+```
+
+2. Navigate to the project folder:
+
+```cli
+cd frontend-hackadisc
+```
+
+4. Install the project dependencies:
+   
+```cli
+npm install 
+```
+
+5. Run the project:
+
+ ```cli
+npm run dev
+```
